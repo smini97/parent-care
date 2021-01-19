@@ -14,7 +14,7 @@ import ContentView from '../page/ContentView';
 const Stack = createStackNavigator();
 
 
-const StackNavigator = () =>{
+const StackNavigator = () => {
     return (
 
         //책갈피 기능을 하는 네비게이터 엘리먼트를 선언합니다.

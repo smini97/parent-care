@@ -1,13 +1,18 @@
 import React, {useState, useEffect} from 'react';
-import { StyleSheet, StatusBar, Text, View, Dimensions, ScrollView, TouchableOpacity, ImageBackground, Share} from 'react-native';
+import { StyleSheet, Video, Text, View, Dimensions, ScrollView, TouchableOpacity, ImageBackground, Share} from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import CommentLine from "../components/CommentLine"
+import AudioPlay from '../components/AudioPlay';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 export default function ContentView({navigation, route}) {
   const {media, title, tags, img_url} = route.params
+  const isAudio = media=="오디오북"
+  const isVideo = media == "인터뷰"
+  console.log(isVideo)
+  console.log(img_url[0])
   const [likeState,setLikeState] = useState([])
   const [likeColorState,setLikeColorState] = useState([])
   const isLiked = async() => {
@@ -53,11 +58,13 @@ return (
         </View>
 
         <ScrollView style={styles.mainContainer}>
-            <ScrollView horizontal showsHorizontalScrollIndicator={true} scrollEventThrottle={1} pagingEnabled={true} indicatorStyle={"white"}>
+          <ScrollView horizontal showsHorizontalScrollIndicator={true} scrollEventThrottle={1} pagingEnabled={true} indicatorStyle={"black"} style={{paddingBottom:10}}>
               {img_url.map((data,i)=>{
                 return <ImageBackground key={i} source={{url: data}} resizeMode="cover" style={styles.imageBox}></ImageBackground>
               })}
             </ScrollView>
+          
+            
             
             
 
@@ -79,7 +86,7 @@ return (
             </View>
 
             <View style={styles.commentBox}>
-              <View><Text style={{margin:5, marginBottom:20,color:"grey"}}>댓글 1216개 보기...</Text></View>
+              <View><Text style={{margin:5, marginBottom:20,color:"#a3a3a3"}}>댓글 1216개 보기...</Text></View>
               {commentExList.map((data,i)=>{
                 return <CommentLine key={i} profile={data.profile} name={data.name} comment={data.comment}/>
               })}
@@ -131,6 +138,7 @@ const styles = StyleSheet.create({
   titleText:{
     fontWeight:"700", 
     fontSize:17,
+    textAlign: "center"
   },
   mediaBox:{
     borderColor: "grey",

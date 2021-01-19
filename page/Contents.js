@@ -5,13 +5,12 @@ import ContentLine from "../components/ContentLine"
 
 
 
-
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 
 export default function Contents({navigation, route}) {
-  
+  const audioThumbnail = "https://firebasestorage.googleapis.com/v0/b/d-care-app.appspot.com/o/images%2FaudioThumbnail.png?alt=media&token=b5b1e996-8a8d-4a9c-941c-eecc88423de9"
   const {situationTitle, contentList} = route.params
 
   const [state,setState] = useState([])
@@ -29,7 +28,10 @@ return (
         <ScrollView>
             {state.map((data,i)=> {
                   let img_url = data.img_url
-                  let thumbnail = img_url[0]
+                  let thumbnail = ''
+                  if(data.media == "오디오북"){
+                    thumbnail = audioThumbnail
+                  } else{ thumbnail = img_url[0] }
                   let tag = "#" + data.tags.join(" #")
                   return <ContentLine key={i} media={data.media} title={data.title} tags={tag} img_url={img_url} thumbnail={thumbnail} navigation={navigation}/>
                   })
@@ -68,7 +70,8 @@ const styles = StyleSheet.create({
   },
   footer: {
     height: 10,
-    backgroundColor: "#e2e2e2"
+    backgroundColor: "#e2e2e2",
+    marginTop: 30
   },
 
   content: {

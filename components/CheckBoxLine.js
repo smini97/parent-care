@@ -1,17 +1,27 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { StyleSheet, Text, View, Dimensions, ScrollView, TouchableOpacity, ImageBackground } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
-const CheckBoxLine = ({text, emojiName, isChecked}) => {
-
+const CheckBoxLine = ({text}) => {
+  const [checkState,setCheckState] = useState(true)
+  const [emojiName, setEmojiName] = useState('checksquareo')
+  const onCheck = () => {
+    setCheckState(!checkState)
+    if(checkState == false){
+      setEmojiName('checksquareo')
+    } else{
+      setEmojiName('checksquare')
+    }
+  }
+  
 
   return (
         <View style={styles.container}>
             <View style={styles.box}>
-                <TouchableOpacity style={styles.checkBox}><AntDesign name={emojiName} size={32} color="#86A8E7" onPress={()=>isChecked()}/></TouchableOpacity>
+                <TouchableOpacity style={styles.checkBox} onPress={onCheck}><AntDesign name={emojiName} size={32} color="#86A8E7"/></TouchableOpacity>
                 <View style={styles.textBox}><Text style={styles.adviceText}>{text}</Text></View>
             </View>
         </View>

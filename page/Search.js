@@ -29,12 +29,12 @@ export default function Search({navigation}) {
   }
   const getData = async() => {
     let contentList = []
-    rawdata.map((data,i) => {
+    await rawdata.map((data,i) => {
       data['content_list'].map((dat,i)=>{
         contentList.push(dat)
       })
     })
-    await setState(contentList), setCategoryState(tagList), setCateContentState(contentList), setClickedState('전체')
+    setState(contentList), setCategoryState(tagList), setCateContentState(contentList), setClickedState('전체')
   }
 
   useEffect(()=>{

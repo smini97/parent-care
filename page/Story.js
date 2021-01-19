@@ -1,11 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import { StyleSheet, Text, View, Dimensions, ScrollView, TouchableOpacity, ImageBackground } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
-import { AntDesign } from '@expo/vector-icons';
 import StoryBubbleRight from "../components/StoryBubbleRight"
 import StoryBubbleLeft from "../components/StoryBubbleLeft"
-import rawdata from "../situationdata.json";
 import proImg from "../assets/icons/story_profile.png"
+import StorySendModal from '../components/StorySendModal';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -65,7 +64,7 @@ export default function Story() {
             <View><Text style={styles.titleText}>사연 더하기 +</Text></View>
             <View style={styles.addBox}>
               <View style={styles.addTextBox}><Text>{'나만, 우리아이만 이렇게 힘들까...?\n이 역경을 어떻게 헤쳐나가면 좋지?\n이런 고민이 들 때,\n대치케어의 문을 두드리세요!'}</Text></View>
-              <TouchableOpacity style={styles.addPlus}><AntDesign name="pluscircle" size={60} color="#86A8E7" /></TouchableOpacity>
+              <StorySendModal/>
             </View>
             
           </View>
@@ -185,9 +184,6 @@ const styles = StyleSheet.create({
   addTextBox:{
     flex:4,
     paddingLeft: 10
-  },
-  addPlus:{
-    flex:1,
   },
   historyBox:{
     padding:15,

@@ -12,16 +12,9 @@ export default function Mentoring() {
   const fiveSenList = ["공부하라고 잔소리하지 않는다.","친구와 비교하지 않는다.","다양하게 잘 먹인다.","아이를 깨울 때 화내지 않는다.","부모도 집에서 조용히 공부한다."]
 
 
-  const [checkState,setCheckState] = useState([])
-  const isChecked = async() => {
-    if(checkState == "checksquareo"){
-      setCheckState("checksquare")
-    } else{
-      setCheckState("checksquareo")
-    }
-  }
+  
   useEffect(()=>{
-    isChecked();
+    
   },[])
   
 
@@ -40,9 +33,9 @@ export default function Mentoring() {
           </View>
 
           <View style={styles.boxContainer}>
-            <Text style={styles.titleText}>미션! 5계명</Text>
+            <Text style={styles.titleText}>1월 21일, 5계명 얼만큼 지켰나요?</Text>
             {fiveSenList.map((data,i)=>{
-              return <CheckBoxLine text={data} emojiName={checkState} isChecked={isChecked}/>
+              return <CheckBoxLine key={i} text={data}/>
             })}
             
           </View>
@@ -153,7 +146,8 @@ const styles = StyleSheet.create({
   },
   normalText:{
     fontSize:13,
-    padding:10
+    padding:10,
+    paddingHorizontal: 15
   }
 
 
