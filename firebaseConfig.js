@@ -13,6 +13,7 @@ import "firebase/storage";
 const firebaseConfig = {
     apiKey: "AIzaSyARo1Uyk74UzN3jBHHWFwolmC8xKj5_Tqk",
     authDomain: "d-care-app.firebaseapp.com",
+    databaseURL: "https://d-care-app-default-rtdb.firebaseio.com",
     projectId: "d-care-app",
     storageBucket: "d-care-app.appspot.com",
     messagingSenderId: "481004587172",
