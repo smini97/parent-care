@@ -11,11 +11,15 @@ const windowHeight = Dimensions.get('window').height;
 const ContentLine = ({navigation, media, title, tags, img_url, thumbnail}) => {
   
   let categoryColor = '#94a7ae'
+
+  const onSendData = async() => {
+    navigation.navigate("ContentView", {
+      navigation: navigation, media: media, title: title, tags: tags, img_url: img_url} )
+  }
   
   
   return (
-      <TouchableOpacity style={styles.container} onPress={() => navigation.navigate("ContentView", {
-      navigation: navigation, media: media, title: title, tags: tags, img_url: img_url} )}>
+      <TouchableOpacity style={styles.container} onPress={onSendData}>
         <ImageBackground source={{url: thumbnail}} imageStyle={{borderTopLeftRadius:10, borderTopRightRadius:10}} resizeMode="cover" style={styles.imageBox}>
           <Text style={{flex:1, backgroundColor: "rgba(255,255,255,0.2)"}}></Text>
         </ImageBackground>

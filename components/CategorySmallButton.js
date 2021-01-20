@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Dimensions, ScrollView, TouchableOpacity, ImageBackground } from 'react-native';
+import { StyleSheet, Text, View, Dimensions,  TouchableOpacity, Alert} from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 
 const windowWidth = Dimensions.get('window').width;
@@ -18,7 +18,7 @@ const CategorySmallButton = ({topic, num}) => {
   } else {emojiColor += "lightgrey"}
 
   return (
-        <TouchableOpacity style={styles.container}>
+        <TouchableOpacity style={styles.container} onPress= {()=>Alert.alert("서비스 준비중입니다 조금만 기다려주세요!")}>
             <View style={styles.box}>
               <View><AntDesign name="heart" size={14} color={emojiColor} /></View>
               <View><Text style={styles.topicText}>{topic}</Text></View>

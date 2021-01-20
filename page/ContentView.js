@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from 'react';
-import { StyleSheet, Video, Text, View, Dimensions, ScrollView, TouchableOpacity, ImageBackground, Share} from 'react-native';
+import { StyleSheet, Text, View, Dimensions, ScrollView, TouchableOpacity, ImageBackground, Share} from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import CommentLine from "../components/CommentLine"
+import VideoPlayButton from "../components/VideoPlayButton"
 import AudioPlay from '../components/AudioPlay';
 
 const windowWidth = Dimensions.get('window').width;
@@ -11,10 +12,10 @@ export default function ContentView({navigation, route}) {
   const {media, title, tags, img_url} = route.params
   const isAudio = media=="오디오북"
   const isVideo = media == "인터뷰"
-  console.log(isVideo)
-  console.log(img_url[0])
-  const [likeState,setLikeState] = useState([])
-  const [likeColorState,setLikeColorState] = useState([])
+
+  
+  const [likeState,setLikeState] = useState('')
+  const [likeColorState,setLikeColorState] = useState('')
   const isLiked = async() => {
     if(likeState == "hearto"){
       setLikeState("heart")
@@ -22,11 +23,12 @@ export default function ContentView({navigation, route}) {
       console.log("liked")
     } else{
       setLikeState("hearto")
-      setLikeColorState("black")
+      setLikeColorState("#000")
       console.log("unliked")
     }
   }
   useEffect(()=>{
+    
     isLiked();
   },[])
 
@@ -58,17 +60,22 @@ return (
         </View>
 
         <ScrollView style={styles.mainContainer}>
-          <ScrollView horizontal showsHorizontalScrollIndicator={true} scrollEventThrottle={1} pagingEnabled={true} indicatorStyle={"black"} style={{paddingBottom:10}}>
+
+          {isVideo? (<View style={styles.avBox}><VideoPlayButton/></View>
+          ) : 
+          isAudio? (<>
+          <View style={styles.avBox}><AudioPlay url={img_url[0]}/></View>
+            </>):
+          (<>
+            <ScrollView horizontal showsHorizontalScrollIndicator={true} scrollEventThrottle={1} pagingEnabled={true} indicatorStyle={"black"} style={{paddingBottom:10}}>
               {img_url.map((data,i)=>{
                 return <ImageBackground key={i} source={{url: data}} resizeMode="cover" style={styles.imageBox}></ImageBackground>
               })}
             </ScrollView>
+          </>)}
           
-            
-            
-            
-
-        
+          
+ 
 
             <View style={styles.menuBox}>
               <TouchableOpacity style={styles.buttonBox} onPress ={()=>isLiked()}>
@@ -76,11 +83,11 @@ return (
                 <Text style={styles.buttonText}>좋아요</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.buttonBox} onPress ={()=>goMain()}>
-                <AntDesign name="home" size={24} color="black" />
+                <AntDesign name="home" size={24} color="#000" />
                 <Text style={styles.buttonText}>메인으로</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.buttonBox} onPress ={()=>doShare()}>
-                <AntDesign name="sharealt" size={24} color="black" />
+                <AntDesign name="sharealt" size={24} color="#000" />
                 <Text style={styles.buttonText}>공유하기</Text>
               </TouchableOpacity>
             </View>
@@ -119,6 +126,12 @@ const styles = StyleSheet.create({
     flex:1,
     paddingTop: 10
   },
+  avBox: {
+    justifyContent: "center",
+    alignItems: "center",
+    width: windowWidth,
+    height: windowWidth
+  },
   imageBox:{
     width: windowWidth,
     height: windowWidth,
@@ -153,7 +166,7 @@ const styles = StyleSheet.create({
   mediaText:{
     fontWeight:"500", 
     fontSize:13,
-    color:"grey"
+    color:"#a3a3a3"
   },
   tagBox:{
     marginBottom: 5,
@@ -161,7 +174,7 @@ const styles = StyleSheet.create({
   tagText:{
     fontWeight:"300", 
     fontSize:13,
-    color:"grey"
+    color:"#a3a3a3"
   },
   menuBox:{
     flexDirection:"row",

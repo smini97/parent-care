@@ -29,7 +29,7 @@ return (
             {state.map((data,i)=> {
                   let img_url = data.img_url
                   let thumbnail = ''
-                  if(data.media == "오디오북"){
+                  if(data.media == "오디오북" || data.media == "인터뷰"){
                     thumbnail = audioThumbnail
                   } else{ thumbnail = img_url[0] }
                   let tag = "#" + data.tags.join(" #")
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
 
   header: {
     height: 70,
-    marginTop:20,
+    marginTop:50,
     justifyContent: "center",
     alignContent: "center",
     marginBottom: 20,
@@ -63,10 +63,10 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1
   },
   headerTitle:{
-    fontSize: 17,
+    fontSize: 20,
     textAlign: "center",
     color: "#000",
-    paddingHorizontal: 30,
+    paddingHorizontal: 40,
   },
   footer: {
     height: 10,

@@ -24,7 +24,7 @@ const StackNavigator = () => {
             screenOptions={{
             headerStyle: {
                 shadowColor: "#fff",
-                height:50,
+                height:40,
             },
             headerTintColor: "#000",
             headerTransparent: true,
@@ -35,9 +35,9 @@ const StackNavigator = () => {
 
             {/* 컴포넌트를 페이지로 만들어주는 엘리먼트에 끼워 넣습니다. 이 자체로 이제 페이지 기능을 합니다*/}
             <Stack.Screen name="TabNavigator" component={TabNavigator}/>
-            <Stack.Screen name="Situation" component={Situation} options={{ title: ' '}}/>
-            <Stack.Screen name="Contents" component={Contents} options={{ title: ' '}}/>
-            <Stack.Screen name="ContentView" component={ContentView} options={{ title: ' '}}/>
+            <Stack.Screen name="Situation" component={Situation} options={{ headerTitle: ""}}/>
+            <Stack.Screen name="Contents" component={Contents} options={{ headerTitle: ""}}/>
+            <Stack.Screen name="ContentView" component={ContentView} options={{ headerTitle: ""}}/>
             
         </Stack.Navigator>
     )
