@@ -4,7 +4,6 @@ import {Platform} from "react-native"
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import Main from '../page/Main';
-import Search from '../page/Search';
 import Story from '../page/Story';
 import Mentoring from '../page/Mentoring';
 
@@ -59,7 +58,6 @@ const TabNavigator = ({navigation,route}) =>{
     >
         
         <Tabs.Screen name="Main" component={Main}/>
-        <Tabs.Screen name="Search" component={Search}/>
         <Tabs.Screen name="Story" component={Story}/>
         <Tabs.Screen name="Mentoring" component={Mentoring}/>
         
