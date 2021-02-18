@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Alert, Modal, StyleSheet, Text, TouchableWithoutFeedback, Keyboard, TouchableHighlight, View, TextInput,Dimensions, ImageBackground } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { useEffect } from 'react/cjs/react.development';
+
 import { AntDesign } from '@expo/vector-icons';
 
 const windowWidth = Dimensions.get('window').width;

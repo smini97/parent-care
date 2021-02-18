@@ -6,7 +6,7 @@ import TabNavigator from './TabNavigator';
 //페이지로 만든 컴포넌트들을 불러옵니다
 import Situation from '../page/Situation';
 import Contents from '../page/Contents';
-import ContentView from '../page/ContentView';
+import CommunityView from '../page/CommunityView'
 
 
 //스택 네비게이션 라이브러리가 제공해주는 여러 기능이 담겨있는 객체를 사용합니다
@@ -37,8 +37,7 @@ const StackNavigator = () => {
             <Stack.Screen name="TabNavigator" component={TabNavigator}/>
             <Stack.Screen name="Situation" component={Situation} options={{ headerTitle: ""}}/>
             <Stack.Screen name="Contents" component={Contents} options={{ headerTitle: ""}}/>
-            <Stack.Screen name="ContentView" component={ContentView} options={{ headerTitle: ""}}/>
-            
+            <Stack.Screen name="CommunityView" component={CommunityView} options={{ headerTitle: ""}}/>
         </Stack.Navigator>
     )
 }

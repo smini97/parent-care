@@ -1,11 +1,9 @@
-import React from 'react';
-import { StyleSheet, Text, View, Dimensions, ScrollView, TouchableOpacity, Linking, ImageBackground, Image } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, Text, View, Modal, Dimensions, ScrollView, TouchableOpacity, Linking, ImageBackground, Image } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
-import CategoryButton from "../components/CategoryButton"
-import CategorySmallButton from "../components/CategorySmallButton"
-
-
+import mainImg from "../assets/main.jpg"
+import { Ionicons } from '@expo/vector-icons';
+import MainMissionModal from "../components/MainMissionModal"
 
 
 const windowWidth = Dimensions.get('window').width;
@@ -13,128 +11,75 @@ const windowHeight = Dimensions.get('window').height;
 
 
 export default function Main({navigation}) {
-  const d_day = '125';
 
-  const todaySentence = "삶은 너무나 빠르기 때문에, 잠시 멈춰 돌아볼 시간을 가지지 않는다면 소중한 순간들을 놓치고 말 것이다."
-  const todaySentenceWriter = "Ferris Bueller"
   
-  const categoryList = ["parent", "kid", "conflict", "test"];
-  const cateOptions ={
-    parent: {
-      category: "부모",
-      emoji: "rest",
-      titleMain: "부모라서\n 힘들어요",
-      title: "부모라서 힘들어요",
-      desc: "부모는 슈퍼맨이어야만 할까요?\n부모도 당연히 힘들 수 있어요.\n지칠 수도 있어요.\n공부하는 수험생만 힘든 게 아니라,\n케어하는 부모 역할도 아주 어려운 거예요.\n따분하고, 불안하고, 조급한 일상 속에서\n마음의 위안을 얻고 가세요."
-    },
-    kid: {
-      category: "자녀",
-      emoji: "frowno",
-      titleMain: "내 아이가\n 힘들어요",
-      title: "내 아이가 힘들어요",
-      desc: "우리 아이를 오래동안 봐온 만큼\n내가 가장 잘 안다고 생각했는데,\n수험생이 된 후로 아이 대하기 참 어렵죠.\n중요한 시기이니 잘 해주고 싶은데, 어려워요.\n공부 잘했으면 하는 욕심이 들면서도,\n스트레스 받는 모습이 걱정되기도 하죠."
-    },
-    conflict: {
-      category: "갈등",
-      emoji: "rocket1",
-      titleMain: "갈등이\n생겼어요",
-      title: "갈등이 생겼어요",
-      desc: "수험생활로 예민해진 아이,\n덩달아 조급하고 불안해진 부모,\n싸우고 싶지 않아도 자꾸 다투게 되나요?\n자연스러운 현상이니까 걱정말아요.\n그러나 갈등이 오래, 반복적으로 지속되어선 안되겠죠.\n어떻게 갈등을 해결하고 계신가요?"
-    },
-    test: {
-      category: "진로성적",
-      emoji: "Trophy",
-      titleMain: "시험·성적\n 진로 관련",
-      title: "시험·성적·진로 관련",
-      desc: "아이가 성적을 잘 받았으면 하는 욕심이 들어요.\n멋진 진로를 목표로 삼았으면,\n하고 바라기도 해요.\n'건강하기만 해다오' 하던 게 엊그제같은데..\n사람 마음이 참 아이러니하죠.\n시험, 성적, 진로 관련한 상황들에 대비하는 마음비법을 소개합니다."
-    },
-    
-  };
+  const [contents, setContents] = useState([])
+  const prepare = async () => {
+    await setContents(["모의고사 성적이 기대하던 수준에 미치지 않을 때", "성적을 숨기거나 말하지 않으려고 할 때", "자녀에게 특정 진로를 강요하고 싶을 때", "자녀가 희망하는 과가 마음에 들지 않을 때", "친구 자녀가 좋은 대학에 합격한 소식을 들었을 때", "자녀가 아침에 잘 일어나지 못할 때", "정신적 문제를 심각하게 호소할 때", "지속적으로 폭식을 하거나 음식을 거의 섭취하지 않을 때", "갱년기로 우울해지고 힘들 때", "공부 잘하는 다른 형제자매와 비교하게 될 때", "일이 너무 바빠서 자녀를 잘 챙겨주지 못하는 시기일 때", "자녀에게 집착하게 되고, 자녀와 심리적으로 분리되기 어려울 때", "자녀에게 욱해서 마음에도 없는 나쁜 말을 하고 후회할 때", "재수나 N수를 해서 공부를 더 하고 싶다고 하여 혼란스러울 때"])
+  }
+  useEffect(()=>{
+    prepare();
+  }, [])
 
-  const emotionList = ["불안","우울","실망","분노","집착","그외"];
-  const mentorDescTagList = ["맞벌이부모","바쁜엄마","활발한엄마","말안듣는외동딸","예민한딸","방임지향형"];
-  const mentorDescSen = "잔소리는 줄이되, 아이를 신뢰해야 자신감을 갖고 공부할 수 있습니다."
-  const mentorDescTag = '#'+mentorDescTagList.join(' #');
-  const adviceList = ['화가 올라올 때 방 안에서 명상을 합니다', '일주일에 한 번은 함께 식사를 합니다', '아침을 챙겨주고, 포옹으로 배웅합니다', '방문 열 때 노크한 후 허락을 기다립니다', '늦게 학원이 끝나면 데리러 갑니다'];
-  const storyToday = '아이가 수능을 앞두고 잠이 많아졌어요. 주말엔 특히 낮잠을 너무 많이 자요. 피곤한 건 아는데, 지켜만 보려니 속이 터집니다. 어떻게 하면 좋을까요?'
+
   return (
     <View style={styles.container}>
-      
-      <StatusBar style="light" />
+      <StatusBar style="dark" />
     
-    <ScrollView style={styles.mainContainer}>
-      <LinearGradient
-          // Background Linear Gradient
-          colors={['#7F7FD5', '#86A8E7', '#fff']}
-          style={{
-            position: 'absolute',
-            left: 0,
-            right: 0,
-            top: 0,
-            height: windowHeight,
-          }}
-        />
-        <View style={styles.introBox}> 
-          <Text style={{textAlign: "center", color:"#fff", marginBottom: 30, fontSize: 14, fontWeight: "500", fontStyle: "italic"}}>안녕하세요, 수민맘님!</Text>
-          <Text style={{textAlign: "center", color:"#fff", marginBottom: 70, fontSize: 21, fontWeight: "700"}}>오늘은 수능 {d_day}일 전{"\n"}1학기 중간고사 12일 전{"\n"}입니다</Text>
-          <Text style={{textAlign: "center", color: "#fff", marginBottom: 5, fontSize: 13, fontWeight: "500"}}>{todaySentence}</Text>
-          <Text style={{textAlign:"center", color:"#fff"}}>- {todaySentenceWriter}</Text>
+      <ScrollView style={styles.mainContainer}>
+
+      <View style={{flexDirection: "row", justifyContent:"space-between", alignItems: "flex-end"}}>
+        <Text style={styles.smallText}>수능 D-123  기말고사 D-38</Text>
+        <MainMissionModal/>
+        
+      </View>
+        
+      <View style={styles.boxContainer}>
+        <Text style={styles.largeText}>오늘의 추천 콘텐츠</Text>
+        <View style={styles.centeredView}>
+          <ImageBackground source={mainImg} style={{width: windowWidth/1.02, height: windowWidth/1.5, resizeMode: "cover", justifyContent:"space-between"}} imageStyle={{borderRadius: 10}}>
+            <Text style={{...styles.largeText, color: "#fff", paddingTop:20}}>모의고사 성적이 기대하던{"\n"}수준에 미치지 못했을 때</Text>
+            <View style={{flexDirection: "row", justifyContent:"space-between", padding:20}}>
+              <Text style={{...styles.smallText, color:"#fff"}}>1/10</Text>
+              <TouchableOpacity>
+              <Text style={{...styles.smallText, backgroundColor:"#fff", borderRadius: 10, overflow:"hidden"}}>보러가기</Text>
+              </TouchableOpacity>
+            </View>
+          </ImageBackground>
         </View>
+      </View>
 
-        <View style={styles.whiteContainer}>
-
-          <View style={styles.boxContainer}>
-            <View><Text style={styles.titleText}>무엇이 고민이신가요?</Text></View>
-            <View style={styles.categoryBox}>
-              {categoryList.map((data,i)=>{
-                const category = cateOptions[data].category;
-                const cateTitleMain = cateOptions[data].titleMain;
-                const cateTitle = cateOptions[data].title;
-                const cateEmoji = cateOptions[data].emoji;
-                const cateDesc = cateOptions[data].desc
-                      return <CategoryButton key={i} category={category} titleMain={cateTitleMain} title={cateTitle} emoji={cateEmoji} desc={cateDesc} navigation={navigation}/>
-
-                    })}
-            </View>
+      <View style={styles.boxContainer}>
+        <Text style={styles.largeText}>카테고리별 콘텐츠</Text>
+        <TouchableOpacity style={{...styles.categoryBox, width:windowWidth}} onPress={() => navigation.navigate("Situation", {
+        contents:contents})}>
+          <Ionicons name="heart-circle" size={30} color="#30475e" />
+          <Text style={styles.smallText}>고민별 마음다스리기</Text>
+        </TouchableOpacity>
+        <View style={{flexDirection:"row"}}>
+          <View style={styles.categoryBox}>
+          <Ionicons name="headset" size={30} color="#30475e" />
+            <Text style={styles.smallText}>오디오북</Text>
           </View>
-
-          <View style={styles.boxContainer}>
-            <View><Text style={styles.titleText}>감정별 마음명상</Text></View>
-            <View style= {styles.emotionBox}>
-              {emotionList.map((data,i) =>{
-                return <CategorySmallButton key={i} topic={data} num={i}/>
-              })}
-            </View>
+          <View style={styles.categoryBox}>
+          <Ionicons name="cafe" size={30} color="#30475e" />
+            <Text style={styles.smallText}>명상</Text>
           </View>
-
-          <View style={styles.boxContainer}>
-            <View><Text style={styles.titleText}>오늘의 수험 뉴스</Text></View>
-            <View style={styles.newsBox}>
-              <TouchableOpacity onPress={ ()=>{ Linking.openURL('https://www.donga.com/news/article/all/20201105/103824898/1')}}>
-                <Text style={styles.newsText} numberOfLines={1} ellipsizeMode="tail">▶  올해 수능 부정행위 유형 추가 사항 살펴보니…‘이것 조심’</Text>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={ ()=>{ Linking.openURL('http://news.kbs.co.kr/news/view.do?ncd=5063791&ref=A')}}>
-                <Text style={styles.newsText} numberOfLines={1} ellipsizeMode="tail">▶  유은혜 “수능 이후 약 40만명 대학별 고사 응시…자가격리자는 별도 시험장서 응시”</Text>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={ ()=>{ Linking.openURL('http://news.heraldcorp.com/view.php?ud=20201204000885')}}>
-                <Text style={styles.newsText} numberOfLines={1} ellipsizeMode="tail">▶  수능 끝…‘정시 전략’ 어떻게 짜야 할까?</Text>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={ ()=>{ Linking.openURL('https://www.sedaily.com/NewsView/1ZBKDJN7DJ')}}>
-                <Text style={styles.newsText} numberOfLines={1} ellipsizeMode="tail">▶  "놀 곳도 쉴 틈도 없어요" 2021수능 수험생 한숨</Text>
-              </TouchableOpacity>
-              
-
-            </View>
+          <View style={styles.categoryBox}>
+          <Ionicons name="at-circle" size={30} color="#30475e" />
+            <Text style={styles.smallText}>명언</Text>
           </View>
-
-
-
+          <View style={styles.categoryBox}>
+          <Ionicons name="library" size={30} color="#30475e" />
+            <Text style={styles.smallText}>심리학</Text>
+          </View>
         </View>
+      </View>
 
 
-    </ScrollView>
-    
-    
+
+      </ScrollView>
+
     </View>
   );
 }
@@ -147,72 +92,41 @@ const styles = StyleSheet.create({
     width: windowWidth,
     height: windowHeight,
   },
+  centeredView:{
+    justifyContent: "center",
+    alignItems:"center"
+  },
   mainContainer:{
     flex:1,
     width: windowWidth,
     height: windowHeight,
-  },
-  introBox:{
-    padding:5,
-    margin:15,
-    marginTop: 100,
-    marginBottom: 30,
-  },
-  whiteContainer:{
-    flex:1,
-    backgroundColor: "#fff",
-    borderTopRightRadius:40,
-    borderTopLeftRadius:40, 
-    paddingBottom: 20
+    marginTop: 30
   },
   
-  categoryBox:{
-    flex:1,
-    padding:10,
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    flexWrap:"wrap",
-  },
   boxContainer:{
-    marginBottom:10,
+    marginBottom: 30
   },
-  titleText:{
+  largeText:{
     color:"#000",
-    fontSize: 16,
+    fontSize: 24,
     fontWeight: "700",
-    margin:5,
-    marginLeft: 15,
-    marginTop:30,
-    marginBottom: 10,
+    padding: 10,
+    paddingHorizontal: 20,
   },
-  emotionBox:{
-    flexDirection: "row",
-    flexWrap: "wrap",
-    
-    justifyContent: "center"
+  smallText:{
+    fontSize: 15,
+    fontWeight: "400",
+    padding: 10,
+    paddingHorizontal: 15
   },
-  newsBox:{
-    padding:10,
-    marginLeft:15,
-    marginRight:15,
-    backgroundColor:"#fff",
-    borderRadius:20,
-    borderWidth:0.5,
-    borderColor:"lightgrey",
-    shadowColor: 'lightgrey',
-        shadowOffset: {
-          width: 5,
-          height: 5,
-        },
-        shadowOpacity: 0.3,
-        shadowRadius: 3,
-        elevation: 5,
-  },
-  newsText:{
-    margin: 10,
-    marginBottom: 10,
-    fontSize: 13
-  }
 
+  categoryBox:{
+    width: windowWidth/4,
+    height: windowWidth/4,
+    justifyContent:"center",
+    alignItems:"center",
+    borderColor: "#e8e8e8",
+    borderWidth: 1,
+  }
 
 });
