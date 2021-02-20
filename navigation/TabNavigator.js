@@ -5,8 +5,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import Main from '../page/Main';
 import Story from '../page/Story';
-import Mentoring from '../page/Mentoring';
 import Community from '../page/Community'
+import Mypage from '../page/Mypage'
 
 import {Ionicons} from "@expo/vector-icons";
 
@@ -31,13 +31,13 @@ const TabNavigator = ({navigation,route}) =>{
               
                   if (route.name === "Main") {
                     iconName += "home";
-                  } else if (route.name === "Search") {
-                    iconName += "search";
                   } else if (route.name === "Story") {
-                    iconName += "radio";
+                    iconName += "fitness";
                   } else if (route.name === "Community") {
-                    iconName += "people";
-                  }
+                    iconName += "chatbubbles";
+                  } else if (route.name === "Mypage") {
+                    iconName += "person-circle";
+                  } 
 
                   return (
                     <Ionicons
@@ -61,6 +61,7 @@ const TabNavigator = ({navigation,route}) =>{
         <Tabs.Screen name="Main" component={Main}/>
         <Tabs.Screen name="Story" component={Story}/>
         <Tabs.Screen name="Community" component={Community}/>
+        <Tabs.Screen name="Mypage" component={Mypage}/>
         
         
 
