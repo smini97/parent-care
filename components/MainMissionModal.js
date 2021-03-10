@@ -26,7 +26,7 @@ export default function MainMissionModal() {
 
             <View style={{flexDirection: "row", justifyContent: "space-around", alignItems:"center"}}>
                 <Text style={{...styles.smallText}}>하루 한 번 아이와 포옹하기</Text>
-                <Ionicons name="checkmark-circle" size={30} color="#f05454" />
+                <Ionicons name="checkmark-circle" size={30} color="#ff825c" />
             </View>
 
             <View style={{flexDirection: "row", justifyContent: "space-around", alignItems:"center"}}>
@@ -51,7 +51,7 @@ export default function MainMissionModal() {
         onPress={() => {
           setModalVisible(true);
         }}>
-        <Ionicons name="checkmark-circle" size={70} color="#30475e" />
+        <Ionicons name="checkmark-circle" size={70} color="#ff825c" />
       </TouchableOpacity>
       
     </View>

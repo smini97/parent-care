@@ -42,7 +42,7 @@ const TabNavigator = ({navigation,route}) =>{
                   return (
                     <Ionicons
                       name={iconName}
-                      color={focused ? "#222831" : "lightgrey"}
+                      color={focused ? "#ff825c" : "lightgrey"}
                       size={25}
                     />
                   );

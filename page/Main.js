@@ -37,7 +37,7 @@ export default function Main({navigation}) {
       <View style={styles.boxContainer}>
         <Text style={styles.largeText}>오늘의 추천 콘텐츠</Text>
         <View style={styles.centeredView}>
-          <ImageBackground source={mainImg} style={{width: windowWidth/1.02, height: windowWidth/1.5, resizeMode: "cover", justifyContent:"space-between"}} imageStyle={{borderRadius: 10}}>
+          <View style={{width: windowWidth/1.02, height: windowWidth/1.5, backgroundColor:"#5de2a2",justifyContent:"space-between", borderRadius:10}}>
             <Text style={{...styles.largeText, color: "#fff", paddingTop:20}}>모의고사 성적이 기대하던{"\n"}수준에 미치지 못했을 때</Text>
             <View style={{flexDirection: "row", justifyContent:"space-between", padding:20}}>
               <Text style={{...styles.smallText, color:"#fff"}}>1/10</Text>
@@ -45,7 +45,7 @@ export default function Main({navigation}) {
               <Text style={{...styles.smallText, backgroundColor:"#fff", borderRadius: 10, overflow:"hidden"}}>보러가기</Text>
               </TouchableOpacity>
             </View>
-          </ImageBackground>
+          </View>
         </View>
       </View>
 
@@ -53,24 +53,24 @@ export default function Main({navigation}) {
         <Text style={styles.largeText}>카테고리별 콘텐츠</Text>
         <TouchableOpacity style={{...styles.categoryBox, width:windowWidth}} onPress={() => navigation.navigate("Situation", {
         contents:contents})}>
-          <Ionicons name="heart-circle" size={30} color="#30475e" />
+          <Ionicons name="heart-circle" size={30} color="#5de2a2" />
           <Text style={styles.smallText}>고민별 마음다스리기</Text>
         </TouchableOpacity>
         <View style={{flexDirection:"row"}}>
           <View style={styles.categoryBox}>
-          <Ionicons name="headset" size={30} color="#30475e" />
+          <Ionicons name="headset" size={30} color="#5de2a2" />
             <Text style={styles.smallText}>오디오북</Text>
           </View>
           <View style={styles.categoryBox}>
-          <Ionicons name="cafe" size={30} color="#30475e" />
+          <Ionicons name="cafe" size={30} color="#5de2a2" />
             <Text style={styles.smallText}>명상</Text>
           </View>
           <View style={styles.categoryBox}>
-          <Ionicons name="at-circle" size={30} color="#30475e" />
+          <Ionicons name="at-circle" size={30} color="#5de2a2" />
             <Text style={styles.smallText}>명언</Text>
           </View>
           <View style={styles.categoryBox}>
-          <Ionicons name="library" size={30} color="#30475e" />
+          <Ionicons name="library" size={30} color="#5de2a2" />
             <Text style={styles.smallText}>심리학</Text>
           </View>
         </View>
