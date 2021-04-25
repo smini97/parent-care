@@ -11,21 +11,23 @@ import {
   ImageBackground,
   Alert,
 } from "react-native";
+import { Header, Left, Right, Body } from "native-base";
 import { Ionicons } from "@expo/vector-icons";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
-export default function Contents() {
+export default function Contents({ navigation }) {
+  const [bookmark, setBookmark] = useState(false);
   const title = "자녀가 시무룩해 보여요";
   const story =
     "무슨 일이 있는건지, 요즘따라 아이가 시무룩해 보여서 걱정이에요. 몸에 좋다는 영양제를 다 챙겨줘도 무기력해보이고, 체력 문제인지 다른 고민이 있는건지 모르겠어요. 물어봐도 자기도 잘 모르겠다며 대답을 피하는 아이 때문에 답답해요. 아이가 왜 이러는 걸까요?";
   const content = [
     {
-      title: "교우관계는 어떤지 물어봐주세요.",
+      title: "교우관계는 어떤지 물어봐주세요",
       contents: [
         {
-          title: "교우관계가 힘든 이유",
+          title: "교우관계가 힘든 이유: 소속 욕구",
           url: [
             "https://firebasestorage.googleapis.com/v0/b/d-care-app.appspot.com/o/contents%2FCK5%2F1.png?alt=media&token=01bf4b0a-3735-4c88-bef3-8994a187634d",
             "https://firebasestorage.googleapis.com/v0/b/d-care-app.appspot.com/o/contents%2FCK5%2F2.png?alt=media&token=70f077f2-4423-4fc6-af89-afd93da08386",
@@ -37,7 +39,7 @@ export default function Contents() {
           ],
         },
         {
-          title: "전문가의 도움도 권유하기",
+          title: "전문가의 도움도 권유하세요",
           url: [
             "https://firebasestorage.googleapis.com/v0/b/d-care-app.appspot.com/o/contents%2FCA5%2F1.png?alt=media&token=ee30d0e0-9c93-49b6-b382-f85f9310ac0f",
             "https://firebasestorage.googleapis.com/v0/b/d-care-app.appspot.com/o/contents%2FCA5%2F2.png?alt=media&token=167c7f76-9afc-416d-84f3-93beb2d722ac",
@@ -48,10 +50,10 @@ export default function Contents() {
       ],
     },
     {
-      title: "자존감이 낮아 힘들 수도 있어요.",
+      title: "자존감이 낮아 힘들 수도 있어요",
       contents: [
         {
-          title: "자존감이 필요해요.",
+          title: "자존감이 낮으면 왜 힘들까요?",
           url: [
             "https://firebasestorage.googleapis.com/v0/b/d-care-app.appspot.com/o/contents%2FCK3%2F1.png?alt=media&token=91984b18-519d-4ec6-b35b-4deb884c7abf",
             "https://firebasestorage.googleapis.com/v0/b/d-care-app.appspot.com/o/contents%2FCK3%2F2.png?alt=media&token=ef4a0dc8-9c58-4150-af9d-6bab760bd20f",
@@ -64,7 +66,7 @@ export default function Contents() {
           ],
         },
         {
-          title: "자존감을 측정하는 심리검사",
+          title: "자존감을 측정해 보아요",
           url: [
             "https://firebasestorage.googleapis.com/v0/b/d-care-app.appspot.com/o/contents%2FCA3%2F1.png?alt=media&token=17aedf87-f98b-48b8-83ab-f2ba2b7b5fc1",
             "https://firebasestorage.googleapis.com/v0/b/d-care-app.appspot.com/o/contents%2FCA3%2F2.png?alt=media&token=61e893ed-275f-4101-ab2b-0bdcbdc046f6",
@@ -92,7 +94,7 @@ export default function Contents() {
           ],
         },
         {
-          title: "좋은 삶, 침해받지 않을 권리",
+          title: "칼럼 <좋은 삶, 침해받지 않을 권리>",
           url: [
             "https://firebasestorage.googleapis.com/v0/b/d-care-app.appspot.com/o/contents%2FCH4%2F1.png?alt=media&token=cca64dfc-7ce1-4b3e-a8da-f51c845039b3",
             "https://firebasestorage.googleapis.com/v0/b/d-care-app.appspot.com/o/contents%2FCH4%2F2.png?alt=media&token=4307a4e9-3101-4402-b950-5c9f338357b3",
@@ -111,41 +113,53 @@ export default function Contents() {
   ];
 
   const mission = [
-    "상심이 클 아이 매일 다독여주기",
+    "하루 한 번 격려의 말 하기",
     "등교할 때마다 '사랑해'라고 말하기",
-    "하루에 잔소리 세 번 참기",
+    "매일 한 번 포옹하기",
   ];
-  const [bookmark, setBookmark] = useState(false);
-  const onBookmark = () => {
-    setBookmark(!bookmark);
-  };
+
   return (
     <SafeAreaView style={styles.container}>
-      <View style={{ ...styles.header, flexDirection: "row" }}>
-        <Text style={{ ...styles.headerTitle, marginHorizontal: 50 }}>
-          {title}
-        </Text>
-        <TouchableOpacity onPress={onBookmark}>
-          {bookmark ? (
-            <Ionicons name="bookmark" size={24} color="black" />
-          ) : (
-            <Ionicons name="bookmark-outline" size={24} color="black" />
-          )}
-        </TouchableOpacity>
-      </View>
+      <Header transparent>
+        <Left>
+          <TouchableOpacity
+            style={{ marginLeft: 10 }}
+            onPress={() => {
+              navigation.goBack();
+            }}>
+            <Ionicons name="arrow-back" size={28} color="black" />
+          </TouchableOpacity>
+        </Left>
+        <Body />
+        <Right>
+          <TouchableOpacity
+            style={{ marginRight: 10 }}
+            onPress={() => {
+              setBookmark(!bookmark);
+            }}>
+            {bookmark ? (
+              <Ionicons name="bookmark" size={28} color="black" />
+            ) : (
+              <Ionicons name="bookmark-outline" size={28} color="black" />
+            )}
+          </TouchableOpacity>
+        </Right>
+      </Header>
       <ScrollView
         contentContainerStyle={{
           justifyContent: "center",
           alignItems: "center",
         }}>
+        <Text style={styles.largeText}>{title}</Text>
         <Text
           style={{
             ...styles.smallText,
+            fontSize: 13,
             textAlign: "center",
-            paddingHorizontal: 30,
-            paddingVertical: 30,
+            paddingHorizontal: 20,
+            paddingBottom: 30,
           }}>
-          {story}
+          "{story}"
         </Text>
 
         {content.map((data, i) => {
@@ -158,9 +172,8 @@ export default function Contents() {
                 style={{ width: windowWidth, justifyContent: "flex-start" }}>
                 <View
                   style={{
-                    borderBottomColor: "#e8e8e8",
-                    borderBottomWidth: 1,
-                    marginTop: 15,
+                    backgroundColor: "rgb(247,247,247)",
+                    paddingVertical: 5,
                   }}>
                   <Text style={styles.largeText}>{title}</Text>
                 </View>
@@ -181,22 +194,18 @@ export default function Contents() {
                           alignItems: "center",
                           borderBottomColor: "#e8e8e8",
                           borderBottomWidth: 1,
-                          paddingHorizontal: 30,
-                          paddingVertical: 5,
+                          paddingHorizontal: 20,
+                          paddingVertical: 10,
                         }}>
                         <Text style={styles.smallText}>{data.title}</Text>
                         <TouchableOpacity onPress={onToggle}>
                           {isVisible ? (
-                            <Ionicons
-                              name="caret-up"
-                              size={28}
-                              color="#ff825c"
-                            />
+                            <Ionicons name="caret-up" size={28} color="black" />
                           ) : (
                             <Ionicons
-                              name="caret-down"
+                              name="chevron-forward-outline"
                               size={28}
-                              color="#423f3c"
+                              color="black"
                             />
                           )}
                         </TouchableOpacity>
@@ -235,12 +244,19 @@ export default function Contents() {
         <View
           style={{
             width: windowWidth,
-            marginTop: 15,
+
             justifyContent: "flex-start",
           }}>
-          <Text style={{ ...styles.largeText, color: "#5de2a2" }}>
-            아직도 답답하세요?{"\n"}이런 미션을 추천할게요.
-          </Text>
+          <View
+            style={{
+              backgroundColor: "rgb(247,247,247)",
+              paddingVertical: 5,
+            }}>
+            <Text style={styles.largeText}>
+              아직도 답답하세요?{"\n"}이런 미션을 추천할게요
+            </Text>
+          </View>
+
           <View style={{ marginBottom: 50 }}>
             {mission.map((data, i) => {
               const [isChecked, setIsChecked] = useState(false);
@@ -265,14 +281,15 @@ export default function Contents() {
                       alignItems: "center",
                       borderBottomColor: "#e8e8e8",
                       borderBottomWidth: 1,
-                      paddingHorizontal: 30,
+                      paddingHorizontal: 20,
+                      paddingVertical: 5,
                     }}>
                     <Text style={styles.smallText}>{data}</Text>
                     <TouchableOpacity onPress={onCheck}>
                       {isChecked ? (
-                        <Ionicons name="checkmark" size={32} color="#ff825c" />
+                        <Ionicons name="checkmark" size={32} color="#5de2a2" />
                       ) : (
-                        <Ionicons name="add" size={32} color="#423f3c" />
+                        <Ionicons name="add" size={32} color="black" />
                       )}
                     </TouchableOpacity>
                   </View>
@@ -293,25 +310,9 @@ const styles = StyleSheet.create({
     width: windowWidth,
     height: windowHeight,
   },
-
-  header: {
-    height: 40,
-    marginTop: 20,
-    justifyContent: "center",
-    alignContent: "center",
-    borderBottomColor: "#e2e2e2",
-    borderBottomWidth: 1,
-  },
-  headerTitle: {
-    fontSize: 18,
-    textAlign: "center",
-    color: "#000",
-    paddingHorizontal: 30,
-  },
   largeText: {
-    fontSize: 20,
+    fontSize: 17,
     fontWeight: "600",
-    marginTop: 15,
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderBottomColor: "grey",
@@ -321,6 +322,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: "300",
     paddingVertical: 10,
+    paddingLeft: 20,
     borderBottomColor: "grey",
     borderBottomWidth: 1,
   },

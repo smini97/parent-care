@@ -6,43 +6,82 @@ import {
   Dimensions,
   ScrollView,
   TouchableOpacity,
-  ImageBackground,
 } from "react-native";
+import { Header, Left, Right, Body } from "native-base";
 import { StatusBar } from "expo-status-bar";
 import { Ionicons } from "@expo/vector-icons";
-import { TouchableHighlight } from "react-native-gesture-handler";
+import SituationLine from "../components/SituationLine";
+import SituationTagSelect from "../components/SituationTagSelect";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
 export default function Situation({ navigation, route }) {
   const { contents } = route.params;
-
+  const [data, setData] = useState(contents);
+  const tagList = ["전체", "공부", "자녀", "부모", "갈등"];
+  const [selectedTag, setSelectedTag] = useState("전체");
+  const setTagFunc = (d) => {
+    setSelectedTag(d);
+    if (d === "전체") {
+      setData(contents);
+    } else {
+      setData(
+        contents.filter((v) => {
+          return v.tag === d;
+        })
+      );
+    }
+  };
   return (
     <View style={styles.container}>
       <StatusBar style="dark" />
 
-      <View style={{ ...styles.header, flexDirection: "row" }}>
-        <Text style={{ ...styles.headerTitle, marginHorizontal: 50 }}>
-          고민별 마음다스리기
-        </Text>
-        <TouchableHighlight>
-          <Ionicons name="search-outline" size={24} color="black" />
-        </TouchableHighlight>
-      </View>
+      <Header transparent>
+        <Left>
+          <TouchableOpacity
+            style={{ marginLeft: 10 }}
+            onPress={() => {
+              navigation.goBack();
+            }}>
+            <Ionicons name="arrow-back" size={28} color="black" />
+          </TouchableOpacity>
+        </Left>
+        <Body>
+          <Text style={{ fontSize: 18 }}>당나귀 콘텐츠</Text>
+        </Body>
+        <Right>
+          <TouchableOpacity style={{ marginRight: 10 }}>
+            <Ionicons name="search-outline" size={24} color="black" />
+          </TouchableOpacity>
+        </Right>
+      </Header>
 
       <ScrollView>
-        {contents.map((data, i) => {
+        <TouchableOpacity style={styles.recommendation}>
+          <Text style={{ fontWeight: "700", fontSize: 15, marginBottom: 5 }}>
+            오늘의 추천 고민
+          </Text>
+          <Text style={{ fontWeight: "700", fontSize: 24, color: "#5de2a2" }}>
+            아이가 간섭하지 말라고{"\n"}선을 그어요
+          </Text>
+        </TouchableOpacity>
+        <View style={styles.tagTab}>
+          {tagList.map((data, i) => {
+            const isFocused = data === selectedTag;
+            return (
+              <SituationTagSelect
+                key={i}
+                text={data}
+                isFocused={isFocused}
+                setTagFunc={setTagFunc}
+              />
+            );
+          })}
+        </View>
+        {data.map((data, i) => {
           return (
-            <TouchableOpacity
-              key={i}
-              style={styles.lineBox}
-              onPress={() => navigation.navigate("Contents")}>
-              <Text style={styles.lineText}>{data}</Text>
-              <Text style={styles.tagText}>
-                #모의고사 #성적표 #슬럼프 #시험
-              </Text>
-            </TouchableOpacity>
+            <SituationLine key={i} contents={data} navigation={navigation} />
           );
         })}
       </ScrollView>
@@ -57,35 +96,13 @@ const styles = StyleSheet.create({
     width: windowWidth,
     height: windowHeight,
   },
-
-  header: {
-    height: 40,
-    marginTop: 40,
-    justifyContent: "center",
-    alignContent: "center",
-    borderBottomColor: "#e2e2e2",
-    borderBottomWidth: 1,
+  recommendation: {
+    width: windowWidth / 1.05,
+    height: windowWidth / 2,
+    backgroundColor: "rgb(247,247,247)",
+    alignSelf: "center",
+    padding: 20,
+    borderRadius: 15,
   },
-  headerTitle: {
-    fontSize: 18,
-    textAlign: "center",
-    color: "#000",
-    paddingHorizontal: 30,
-  },
-  lineBox: {
-    height: 80,
-    padding: 10,
-    paddingHorizontal: 20,
-    justifyContent: "center",
-    borderBottomWidth: 1,
-    borderColor: "#e2e2e2",
-  },
-  lineText: {
-    fontSize: 15,
-  },
-  tagText: {
-    fontSize: 12,
-    color: "grey",
-    marginTop: 5,
-  },
+  tagTab: { flex: 1, flexDirection: "row" },
 });

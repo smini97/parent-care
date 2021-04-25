@@ -6,7 +6,7 @@ import TabNavigator from "./TabNavigator";
 //페이지로 만든 컴포넌트들을 불러옵니다
 import Situation from "../pages/Situation";
 import Contents from "../pages/Contents";
-import CommunityView from "../pages/CommunityView";
+import CommunityPostView from "../pages/CommunityPostView";
 
 //스택 네비게이션 라이브러리가 제공해주는 여러 기능이 담겨있는 객체를 사용합니다
 //그래서 이렇게 항상 상단에 선언하고 시작하는게 규칙입니다!
@@ -25,7 +25,7 @@ const StackNavigator = () => {
       <Stack.Screen name="TabNavigator" component={TabNavigator} />
       <Stack.Screen name="Situation" component={Situation} />
       <Stack.Screen name="Contents" component={Contents} />
-      <Stack.Screen name="CommunityView" component={CommunityView} />
+      <Stack.Screen name="CommunityPostView" component={CommunityPostView} />
     </Stack.Navigator>
   );
 };

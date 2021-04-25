@@ -1,63 +1,52 @@
-import React, {useState, useEffect}from 'react';
-import { StyleSheet, Text, View, Dimensions, ScrollView, TouchableOpacity, ImageBackground, Image } from 'react-native';
-import { AntDesign } from '@expo/vector-icons';
-import * as firebase from 'firebase/app';
-import storage from "../firebaseConfig.js"
+import React from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Dimensions,
+  TouchableOpacity,
+  ImageBackground,
+  Image,
+} from "react-native";
 
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
+const windowWidth = Dimensions.get("window").width;
+const windowHeight = Dimensions.get("window").height;
 
-//3 Contents => state.length 로 개수받아서 넣기
-
-const SituationLine = ({navigation, id, title, contentList, thumbnail}) => {
-  
-  
-  //콘텐츠 개수
-  let total = contentList.length
-
+const SituationLine = ({ navigation, contents }) => {
   return (
-    <TouchableOpacity style={styles.contentLineContainer} onPress={() => navigation.navigate("Contents", {
-      navigation: navigation, situationTitle: title, contentList: contentList})}>
-      <ImageBackground source={thumbnail} imageStyle={{borderRadius:5}} style={styles.lineThumbnail}></ImageBackground>
-      <View style={{flex:1, flexDirection: "column", marginRihgt: 20}}>
-        <Text style={styles.lineTitle}>{title}</Text>
-        <Text style={{marginLeft:3, marginBottom:3, color: "grey", fontSize: 11}}>{total} Contents</Text>
+    <TouchableOpacity
+      style={styles.lineBox}
+      onPress={() =>
+        navigation.navigate("Contents", { navigation: navigation })
+      }>
+      <View style={{ flexDirection: "row" }}>
+        <Text style={styles.tagText}>{contents.tag} | </Text>
+        <Text style={styles.lineText}>{contents.title}</Text>
       </View>
-      <AntDesign name="right" size={30} color="lightgrey"/>
     </TouchableOpacity>
-
-
   );
-}
-export default SituationLine
-
+};
+export default SituationLine;
 
 const styles = StyleSheet.create({
-
-contentLineContainer: {
-  flex:1,
-  width: windowWidth,
-  borderBottomWidth: 1,
-  borderBottomColor: "#e2e2e2",
-  padding: 10,
-  flexDirection: "row",
-  alignItems: 'center',
-},
-lineThumbnail: {
-    width: 50,
-    height: 50,
-    backgroundColor: "#fff",
-    borderRadius: 5,
-    marginRight: 20
-},
-lineTitle: {
-  fontSize: 14,
-  margin:3,
-  
-  
-}
-
+  lineBox: {
+    flex: 1,
+    width: windowWidth,
+    padding: 10,
+    paddingVertical: 20,
+    justifyContent: "center",
+    borderBottomWidth: 1,
+    borderColor: "#e2e2e2",
+  },
+  lineText: {
+    fontSize: 15,
+    flex: 7,
+  },
+  tagText: {
+    flex: 1,
+    fontSize: 13,
+    color: "#5de2a2",
+    fontWeight: "700",
+    marginHorizontal: 5,
+  },
 });
-
-
-
