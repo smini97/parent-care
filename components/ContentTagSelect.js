@@ -3,7 +3,7 @@ import { StyleSheet, Dimensions, Text } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 const windowWidth = Dimensions.get("window").width;
 
-export default function SituationTagSelect({ text, isFocused, setTagFunc }) {
+export default function ContentTagSelect({ text, isFocused, setTagFunc }) {
   return isFocused ? (
     <TouchableOpacity
       onPress={() => setTagFunc(text)}
@@ -19,7 +19,7 @@ export default function SituationTagSelect({ text, isFocused, setTagFunc }) {
 
 const styles = StyleSheet.create({
   tagBox: {
-    width: windowWidth / 5,
+    width: windowWidth / 4,
     justifyContent: "center",
     alignItems: "center",
     marginTop: 10,
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   },
   tagText: { fontWeight: "700" },
   selectedTagBox: {
-    width: windowWidth / 5,
+    width: windowWidth / 4,
     justifyContent: "center",
     alignItems: "center",
     marginTop: 10,

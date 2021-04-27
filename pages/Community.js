@@ -68,11 +68,7 @@ export default function Community({ navigation }) {
           <Text style={{ fontSize: 18 }}>커뮤니티</Text>
         </Body>
         <Right>
-          <TouchableOpacity
-            style={{ marginRight: 10 }}
-            onPress={() => {
-              navigation.goBack();
-            }}>
+          <TouchableOpacity style={{ marginRight: 10 }}>
             <Ionicons name="search-outline" size={24} color="black" />
           </TouchableOpacity>
           <TouchableOpacity style={{ marginRight: 10 }}>

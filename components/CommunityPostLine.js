@@ -15,8 +15,7 @@ const windowHeight = Dimensions.get("window").height;
 const CommunityPostLine = ({ post, navigation }) => {
   const onSendData = () => {
     navigation.navigate("CommunityPostView", {
-      title: post.title,
-      post: post.post,
+      post: post,
       navigation: navigation,
     });
   };

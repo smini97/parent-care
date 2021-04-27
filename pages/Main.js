@@ -14,12 +14,11 @@ const windowHeight = Dimensions.get("window").height;
 
 export default function Main({ navigation }) {
   const [contents, setContents] = useState([]);
-  const cateogryList = [
-    { title: "당나귀 콘텐츠", emoji: "heart-circle" },
+  const categoryList = [
     { title: "오디오북", emoji: "headset" },
     { title: "명상", emoji: "cafe" },
     { title: "명언", emoji: "at-circle" },
-    { title: "심리학 지식", emoji: "library" },
+    { title: "심리학지식", emoji: "library" },
   ];
   const prepare = async () => {
     await setContents([
@@ -53,17 +52,18 @@ export default function Main({ navigation }) {
             <View
               style={{
                 width: windowWidth,
-                height: windowWidth / 1.5,
+                height: windowWidth / 1.4,
                 backgroundColor: "#5de2a2",
                 justifyContent: "space-between",
                 paddingHorizontal: 10,
+                paddingTop: 15,
               }}>
               <Text
                 style={{
                   ...styles.smallText,
                   color: "#fff",
                   fontWeight: "700",
-                  paddingTop: 30,
+                  paddingTop: 50,
                 }}>
                 중간고사 13일 전인 오늘,
               </Text>
@@ -118,28 +118,27 @@ export default function Main({ navigation }) {
             style={{
               ...styles.categoryBox,
               width: windowWidth,
-              marginBottom: 20,
+              marginBottom: 10,
             }}
             onPress={() =>
               navigation.navigate("Situation", {
                 contents: contents,
               })
             }>
-            <Ionicons name="heart-circle" size={30} color="#5de2a2" />
-            <Text style={styles.smallText}>당나귀 콘텐츠</Text>
+            <Ionicons name="heart-circle" size={36} color="#5de2a2" />
+            <Text style={styles.smallText}>당나귀 커리큘럼</Text>
           </TouchableOpacity>
           <Text style={styles.largeText}>카테고리별 고민 해결</Text>
           <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
-            {cateogryList.map((data, i) => {
-              if (i > 0) {
-                return (
-                  <MainContentCategory
-                    key={i}
-                    title={data.title}
-                    emoji={data.emoji}
-                  />
-                );
-              }
+            {categoryList.map((data, i) => {
+              return (
+                <MainContentCategory
+                  key={i}
+                  title={data.title}
+                  emoji={data.emoji}
+                  navigation={navigation}
+                />
+              );
             })}
           </View>
         </View>
@@ -161,20 +160,18 @@ const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
     width: windowWidth,
-    marginTop: 30,
   },
   boxContainer: {
-    marginBottom: 30,
+    marginBottom: 10,
   },
   largeText: {
     color: "#000",
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: "700",
     padding: 10,
-    marginVertical: 10,
   },
   smallText: {
-    fontSize: 14,
+    fontSize: 13,
     fontWeight: "400",
     padding: 10,
   },

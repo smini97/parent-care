@@ -27,7 +27,7 @@ const TabNavigator = ({ navigation, route }) => {
           if (route.name === "Main") {
             iconName += "home";
           } else if (route.name === "Community") {
-            iconName += "chatbubbles";
+            iconName += "people";
           } else if (route.name === "Mypage") {
             iconName += "person-circle";
           }
@@ -50,9 +50,7 @@ const TabNavigator = ({ navigation, route }) => {
         },
       }}>
       <Tabs.Screen name="Main" component={Main} />
-
       <Tabs.Screen name="Community" component={Community} />
-      <Tabs.Screen name="Mypage" component={Mypage} />
     </Tabs.Navigator>
   );
 };

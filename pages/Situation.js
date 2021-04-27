@@ -7,7 +7,7 @@ import {
   ScrollView,
   TouchableOpacity,
 } from "react-native";
-import { Header, Left, Right, Body } from "native-base";
+import { Header, Left, Right, Body, Title } from "native-base";
 import { StatusBar } from "expo-status-bar";
 import { Ionicons } from "@expo/vector-icons";
 import SituationLine from "../components/SituationLine";
@@ -48,7 +48,7 @@ export default function Situation({ navigation, route }) {
           </TouchableOpacity>
         </Left>
         <Body>
-          <Text style={{ fontSize: 18 }}>당나귀 콘텐츠</Text>
+          <Title style={{ width: windowWidth / 1.3 }}>당나귀 커리큘럼</Title>
         </Body>
         <Right>
           <TouchableOpacity style={{ marginRight: 10 }}>

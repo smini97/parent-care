@@ -1,5 +1,6 @@
 import React from "react";
 import { StyleSheet, Text, Dimensions, View } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
@@ -9,11 +10,12 @@ export default function MainContentCategory({
   title = "당나귀",
   emoji = "heart-circle",
 }) {
+  const navigation = useNavigation();
   return (
     <TouchableOpacity
       style={styles.categoryBox}
-      onPress={() => console.log({ title })}>
-      <Ionicons name={emoji} size={30} color="#5de2a2" />
+      onPress={() => navigation.navigate("ContentPage", { category: title })}>
+      <Ionicons name={emoji} size={36} color="#5de2a2" />
       <Text style={styles.smallText}>{title}</Text>
     </TouchableOpacity>
   );
@@ -21,10 +23,9 @@ export default function MainContentCategory({
 
 const styles = StyleSheet.create({
   smallText: {
-    fontSize: 14,
+    fontSize: 13,
     fontWeight: "400",
     padding: 10,
-    paddingHorizontal: 10,
   },
 
   categoryBox: {

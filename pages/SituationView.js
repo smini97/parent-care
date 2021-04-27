@@ -8,16 +8,16 @@ import {
   Dimensions,
   TouchableOpacity,
   SafeAreaView,
-  ImageBackground,
   Alert,
 } from "react-native";
-import { Header, Left, Right, Body } from "native-base";
+import { Header, Left, Right, Body, Title } from "native-base";
 import { Ionicons } from "@expo/vector-icons";
+import SituationViewLine from "../components/SituationViewLine";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
-export default function Contents({ navigation }) {
+export default function SituationView({ navigation }) {
   const [bookmark, setBookmark] = useState(false);
   const title = "자녀가 시무룩해 보여요";
   const story =
@@ -130,27 +130,16 @@ export default function Contents({ navigation }) {
             <Ionicons name="arrow-back" size={28} color="black" />
           </TouchableOpacity>
         </Left>
-        <Body />
-        <Right>
-          <TouchableOpacity
-            style={{ marginRight: 10 }}
-            onPress={() => {
-              setBookmark(!bookmark);
-            }}>
-            {bookmark ? (
-              <Ionicons name="bookmark" size={28} color="black" />
-            ) : (
-              <Ionicons name="bookmark-outline" size={28} color="black" />
-            )}
-          </TouchableOpacity>
-        </Right>
+        <Body>
+          <Title style={{ width: windowWidth / 1.3 }}>{title}</Title>
+        </Body>
+        <Right />
       </Header>
       <ScrollView
         contentContainerStyle={{
           justifyContent: "center",
           alignItems: "center",
         }}>
-        <Text style={styles.largeText}>{title}</Text>
         <Text
           style={{
             ...styles.smallText,
@@ -178,62 +167,13 @@ export default function Contents({ navigation }) {
                   <Text style={styles.largeText}>{title}</Text>
                 </View>
 
-                {contents.map((data, j) => {
-                  const [isVisible, setIsVisible] = useState(false);
-                  const onToggle = () => {
-                    setIsVisible(!isVisible);
-                  };
-                  const urlList = data.url;
+                {contents.map((content, j) => {
                   return (
-                    <>
-                      <View
-                        key={j}
-                        style={{
-                          flexDirection: "row",
-                          justifyContent: "space-between",
-                          alignItems: "center",
-                          borderBottomColor: "#e8e8e8",
-                          borderBottomWidth: 1,
-                          paddingHorizontal: 20,
-                          paddingVertical: 10,
-                        }}>
-                        <Text style={styles.smallText}>{data.title}</Text>
-                        <TouchableOpacity onPress={onToggle}>
-                          {isVisible ? (
-                            <Ionicons name="caret-up" size={28} color="black" />
-                          ) : (
-                            <Ionicons
-                              name="chevron-forward-outline"
-                              size={28}
-                              color="black"
-                            />
-                          )}
-                        </TouchableOpacity>
-                      </View>
-                      {isVisible ? (
-                        <>
-                          <ScrollView
-                            horizontal
-                            showsHorizontalScrollIndicator={true}
-                            scrollEventThrottle={1}
-                            pagingEnabled={true}
-                            indicatorStyle={"black"}
-                            style={{ paddingBottom: 10, marginBottom: 30 }}>
-                            {urlList.map((data, i) => {
-                              return (
-                                <ImageBackground
-                                  key={i}
-                                  source={{ url: data }}
-                                  resizeMode="cover"
-                                  style={styles.imageBox}></ImageBackground>
-                              );
-                            })}
-                          </ScrollView>
-                        </>
-                      ) : (
-                        <></>
-                      )}
-                    </>
+                    <SituationViewLine
+                      key={j}
+                      navigation={navigation}
+                      content={content}
+                    />
                   );
                 })}
               </View>
