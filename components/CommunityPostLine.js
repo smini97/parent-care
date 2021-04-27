@@ -24,7 +24,7 @@ const CommunityPostLine = ({ post, navigation }) => {
     <TouchableOpacity
       style={styles.lineBox}
       onPress={() => {
-        navigation.navigate("CommunityPostView", {
+        navigation.push("CommunityPostView", {
           post,
           navigation: navigation,
         });
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
   tagText: {
-    fontSize: 12,
+    fontSize: 13,
     color: "grey",
     marginTop: 5,
   },

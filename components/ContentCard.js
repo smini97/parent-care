@@ -17,7 +17,7 @@ export default function ContentCard({ navigation, content, thumbnail }) {
     <TouchableOpacity
       style={styles.cardBox}
       onPress={() =>
-        navigation.navigate("ContentView", {
+        navigation.push("ContentView", {
           navigation: navigation,
           content: content,
         })
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   largeText: {
-    fontSize: 13,
+    fontSize: 15,
     fontWeight: "500",
   },
 });

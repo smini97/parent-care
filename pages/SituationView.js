@@ -131,7 +131,9 @@ export default function SituationView({ navigation }) {
           </TouchableOpacity>
         </Left>
         <Body>
-          <Title style={{ width: windowWidth / 1.3 }}>{title}</Title>
+          <Text style={{ width: windowWidth / 1.3, fontSize: 17 }}>
+            {title}
+          </Text>
         </Body>
         <Right />
       </Header>
@@ -143,10 +145,9 @@ export default function SituationView({ navigation }) {
         <Text
           style={{
             ...styles.smallText,
-            fontSize: 13,
+            fontSize: 14,
             textAlign: "center",
-            paddingHorizontal: 20,
-            paddingBottom: 30,
+            padding: 40,
           }}>
           "{story}"
         </Text>
@@ -255,16 +256,12 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     paddingVertical: 10,
     paddingHorizontal: 20,
-    borderBottomColor: "grey",
-    borderBottomWidth: 1,
   },
   smallText: {
     fontSize: 15,
     fontWeight: "300",
     paddingVertical: 10,
     paddingLeft: 20,
-    borderBottomColor: "grey",
-    borderBottomWidth: 1,
   },
   imageBox: {
     width: windowWidth,

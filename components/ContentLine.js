@@ -17,7 +17,7 @@ export default function ContentLine({ navigation, content, thumbnail }) {
     <TouchableOpacity
       style={styles.lineBox}
       onPress={() =>
-        navigation.navigate("ContentView", {
+        navigation.push("ContentView", {
           navigation: navigation,
           content: content,
         })
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   largeText: {
-    fontSize: 14,
+    fontSize: 17,
     marginBottom: 5,
     fontWeight: "500",
   },

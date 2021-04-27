@@ -14,7 +14,7 @@ export default function MainContentCategory({
   return (
     <TouchableOpacity
       style={styles.categoryBox}
-      onPress={() => navigation.navigate("ContentPage", { category: title })}>
+      onPress={() => navigation.push("ContentPage", { category: title })}>
       <Ionicons name={emoji} size={36} color="#5de2a2" />
       <Text style={styles.smallText}>{title}</Text>
     </TouchableOpacity>
@@ -23,7 +23,7 @@ export default function MainContentCategory({
 
 const styles = StyleSheet.create({
   smallText: {
-    fontSize: 13,
+    fontSize: 15,
     fontWeight: "400",
     padding: 10,
   },

@@ -17,7 +17,7 @@ const SituationLine = ({ navigation, contents }) => {
     <TouchableOpacity
       style={styles.lineBox}
       onPress={() =>
-        navigation.navigate("SituationView", { navigation: navigation })
+        navigation.push("SituationView", { navigation: navigation })
       }>
       <View style={{ flexDirection: "row" }}>
         <Text style={styles.tagText}>{contents.tag} | </Text>

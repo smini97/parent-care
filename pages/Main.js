@@ -166,12 +166,12 @@ const styles = StyleSheet.create({
   },
   largeText: {
     color: "#000",
-    fontSize: 16,
+    fontSize: 17,
     fontWeight: "700",
     padding: 10,
   },
   smallText: {
-    fontSize: 13,
+    fontSize: 15,
     fontWeight: "400",
     padding: 10,
   },

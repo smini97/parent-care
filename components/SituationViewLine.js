@@ -9,7 +9,7 @@ export default function SituationViewLine({ navigation, content }) {
     <TouchableOpacity
       style={styles.lineBox}
       onPress={() =>
-        navigation.navigate("ContentView", {
+        navigation.push("ContentView", {
           navigation: navigation,
           content: content,
         })
@@ -48,7 +48,5 @@ const styles = StyleSheet.create({
     fontWeight: "300",
     paddingVertical: 10,
     paddingLeft: 20,
-    borderBottomColor: "grey",
-    borderBottomWidth: 1,
   },
 });

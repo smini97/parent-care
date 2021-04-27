@@ -34,7 +34,9 @@ export default function ContentView({ navigation, route }) {
           </TouchableOpacity>
         </Left>
         <Body>
-          <Title style={{ width: windowWidth / 1.3 }}>{content.title}</Title>
+          <Text style={{ width: windowWidth / 1.3, fontSize: 17 }}>
+            {content.title}
+          </Text>
         </Body>
         <Right />
       </Header>
@@ -42,6 +44,7 @@ export default function ContentView({ navigation, route }) {
         style={{
           justifyContent: "center",
           alignItems: "center",
+          marginTop: 10,
         }}>
         <ScrollView horizontal pagingEnabled>
           {content.url.map((data, i) => {
@@ -87,6 +90,22 @@ export default function ContentView({ navigation, route }) {
             <Text style={styles.smallText}>저장하기</Text>
           </TouchableOpacity>
         </View>
+
+        <TouchableOpacity
+          onPress={() => {
+            navigation.push("TabNavigator");
+          }}
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            backgroundColor: "#5de2a2",
+            borderRadius: 10,
+            paddingHorizontal: 15,
+            paddingVertical: 5,
+          }}>
+          <Ionicons name="home" size={28} color="#fff" />
+          <Text style={{ ...styles.smallText, color: "#fff" }}>메인으로</Text>
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
@@ -109,9 +128,9 @@ const styles = StyleSheet.create({
   },
 
   smallText: {
-    fontSize: 13,
+    fontSize: 15,
     fontWeight: "500",
-    paddingVertical: 10,
+    padding: 10,
   },
   imageBox: {
     width: windowWidth,

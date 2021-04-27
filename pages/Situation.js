@@ -48,7 +48,9 @@ export default function Situation({ navigation, route }) {
           </TouchableOpacity>
         </Left>
         <Body>
-          <Title style={{ width: windowWidth / 1.3 }}>당나귀 커리큘럼</Title>
+          <Text style={{ width: windowWidth / 1.3, fontSize: 17 }}>
+            당나귀 커리큘럼
+          </Text>
         </Body>
         <Right>
           <TouchableOpacity style={{ marginRight: 10 }}>

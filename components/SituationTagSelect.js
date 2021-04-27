@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     borderBottomColor: "#e2e2e2",
     borderBottomWidth: 1,
   },
-  tagText: { fontWeight: "700" },
+  tagText: { color: "#000", fontWeight: "700", fontSize: 15 },
   selectedTagBox: {
     width: windowWidth / 5,
     justifyContent: "center",
@@ -39,5 +39,5 @@ const styles = StyleSheet.create({
     borderBottomColor: "#5de2a2",
     borderBottomWidth: 5,
   },
-  selectedTagText: { fontWeight: "700", color: "#5de2a2" },
+  selectedTagText: { fontWeight: "700", color: "#5de2a2", fontSize: 15 },
 });
