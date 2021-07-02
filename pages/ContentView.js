@@ -34,7 +34,7 @@ export default function ContentView({ navigation, route }) {
           </TouchableOpacity>
         </Left>
         <Body>
-          <Text style={{ width: windowWidth / 1.3, fontSize: 17 }}>
+          <Text style={{ width: windowWidth / 1.3, fontSize: 15 }}>
             {content.title}
           </Text>
         </Body>
@@ -44,7 +44,7 @@ export default function ContentView({ navigation, route }) {
         style={{
           justifyContent: "center",
           alignItems: "center",
-          marginTop: 10,
+          marginTop: "10%",
         }}>
         <ScrollView horizontal pagingEnabled>
           {content.url.map((data, i) => {
@@ -69,10 +69,21 @@ export default function ContentView({ navigation, route }) {
               alignItems: "center",
               margin: 10,
             }}>
-            <Ionicons name="share-social" size={24} color="black" />
+            <Ionicons name="share-social" size={28} color="black" />
             <Text style={styles.smallText}>공유하기</Text>
           </TouchableOpacity>
-
+          <TouchableOpacity
+            onPress={() => {
+              navigation.push("TabNavigator");
+            }}
+            style={{
+              justifyContent: "center",
+              alignItems: "center",
+              margin: 10,
+            }}>
+            <Ionicons name="home-outline" size={28} color="black" />
+            <Text style={styles.smallText}>메인으로</Text>
+          </TouchableOpacity>
           <TouchableOpacity
             style={{
               justifyContent: "center",
@@ -90,22 +101,6 @@ export default function ContentView({ navigation, route }) {
             <Text style={styles.smallText}>저장하기</Text>
           </TouchableOpacity>
         </View>
-
-        <TouchableOpacity
-          onPress={() => {
-            navigation.push("TabNavigator");
-          }}
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            backgroundColor: "#5de2a2",
-            borderRadius: 10,
-            paddingHorizontal: 15,
-            paddingVertical: 5,
-          }}>
-          <Ionicons name="home" size={28} color="#fff" />
-          <Text style={{ ...styles.smallText, color: "#fff" }}>메인으로</Text>
-        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );

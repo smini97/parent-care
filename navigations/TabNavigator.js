@@ -6,6 +6,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Main from "../pages/Main";
 import Community from "../pages/Community";
 import Mypage from "../pages/Mypage";
+import MissionHome from "../pages/MissionHome";
 import { Ionicons } from "@expo/vector-icons";
 
 const Tabs = createBottomTabNavigator();
@@ -26,8 +27,10 @@ const TabNavigator = ({ navigation, route }) => {
 
           if (route.name === "Main") {
             iconName += "home";
+          } else if (route.name === "MissionHome") {
+            iconName += "calendar-sharp";
           } else if (route.name === "Community") {
-            iconName += "people";
+            iconName += "chatbubbles";
           } else if (route.name === "Mypage") {
             iconName += "person-circle";
           }
@@ -50,7 +53,9 @@ const TabNavigator = ({ navigation, route }) => {
         },
       }}>
       <Tabs.Screen name="Main" component={Main} />
+      <Tabs.Screen name="MissionHome" component={MissionHome} />
       <Tabs.Screen name="Community" component={Community} />
+      <Tabs.Screen name="Mypage" component={Mypage} />
     </Tabs.Navigator>
   );
 };

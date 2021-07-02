@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
 
   categoryBox: {
     width: windowWidth / 2,
-    height: windowWidth / 4,
+    height: windowWidth / 3.5,
     justifyContent: "center",
     alignItems: "center",
     borderColor: "#e8e8e8",

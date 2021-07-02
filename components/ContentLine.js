@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   largeText: {
-    fontSize: 17,
+    fontSize: 15,
     marginBottom: 5,
     fontWeight: "500",
   },

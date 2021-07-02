@@ -12,16 +12,16 @@ import {
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
-const SituationLine = ({ navigation, contents }) => {
+const SituationLine = ({ navigation, curriculum }) => {
   return (
     <TouchableOpacity
       style={styles.lineBox}
       onPress={() =>
-        navigation.push("SituationView", { navigation: navigation })
+        navigation.push("SituationView", { navigation: navigation})
       }>
       <View style={{ flexDirection: "row" }}>
-        <Text style={styles.tagText}>{contents.tag} | </Text>
-        <Text style={styles.lineText}>{contents.title}</Text>
+        <Text style={styles.tagText}>{curriculum.tag} | </Text>
+        <Text style={styles.lineText}>{curriculum.title}</Text>
       </View>
     </TouchableOpacity>
   );

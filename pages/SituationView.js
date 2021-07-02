@@ -131,7 +131,7 @@ export default function SituationView({ navigation }) {
           </TouchableOpacity>
         </Left>
         <Body>
-          <Text style={{ width: windowWidth / 1.3, fontSize: 17 }}>
+          <Text style={{ width: windowWidth / 1.3, fontSize: 15 }}>
             {title}
           </Text>
         </Body>

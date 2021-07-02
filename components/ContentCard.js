@@ -25,21 +25,21 @@ export default function ContentCard({ navigation, content, thumbnail }) {
       <ImageBackground
         source={{ uri: thumbnail }}
         style={styles.imgBox}
-        imageStyle={{ borderRadius: 5 }}></ImageBackground>
+        imageStyle={{ borderRadius: 5 }}>
+        </ImageBackground>
     </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
   cardBox: {
-    flex: 1,
-    width: 150,
-    marginRight: 10,
+    width: windowWidth / 2.3,
+    height: windowWidth / 2.3,
+    margin: 10,
   },
   imgBox: {
-    width: 150,
-    height: 150,
-    marginBottom: 5,
+    width: windowWidth / 2.3,
+    height: windowWidth / 2.3,
   },
   largeText: {
     fontSize: 15,

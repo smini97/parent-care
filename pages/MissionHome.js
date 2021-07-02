@@ -18,7 +18,7 @@ const windowHeight = Dimensions.get("window").height;
 export default function Mypage({ navigation }) {
   return (
     <View>
-      <Text>MyPage</Text>
+      <Text>MissionHome</Text>
     </View>
   );
 }

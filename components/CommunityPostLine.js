@@ -63,6 +63,6 @@ const styles = StyleSheet.create({
   tagText: {
     fontSize: 13,
     color: "grey",
-    marginTop: 5,
+    marginTop: 3,
   },
 });
