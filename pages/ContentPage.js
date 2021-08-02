@@ -20,12 +20,12 @@ const windowHeight = Dimensions.get("window").height;
 export default function ContentPage({ navigation, route }) {
   const { contents } = route.params;
   const [data, setData] = useState(contents);
-  const tagList = ["심리학지식", "오디오북", "명상", "명언"];
+  const tagList = ["심리학지식", "오디오북", "명언모음"];
   const [selectedTag, setSelectedTag] = useState("심리학지식");
   const setTagFunc = (d) => {
     setSelectedTag(d);
     setData(
-      contents.filter((v) => {
+      contents.result.filter((v) => {
         return v.category === d;
       })
     );
@@ -72,15 +72,20 @@ export default function ContentPage({ navigation, route }) {
             flexDirection: "row",
             flexWrap: "wrap",
           }}>
-          {data.map((data, i) => {
-            return (
-              <ContentCard
-                key={i}
-                content={data}
-                navigation={navigation}
-                thumbnail={data.url[0]}
-              />
-            );
+          {data.result.map((data, i) => {
+            console.log(data);
+            if (data.metadata) {
+              let { files, thumbnail } = JSON.parse(data.metadata);
+              return (
+                <ContentCard
+                  key={i}
+                  content={data}
+                  files={files}
+                  navigation={navigation}
+                  thumbnail={thumbnail}
+                />
+              );
+            }
           })}
         </View>
       </ScrollView>

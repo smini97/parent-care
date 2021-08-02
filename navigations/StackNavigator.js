@@ -4,6 +4,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import TabNavigator from "./TabNavigator";
 
 //페이지로 만든 컴포넌트들을 불러옵니다
+import SignInPage from "../pages/SignInPage";
 import Situation from "../pages/Situation";
 import SituationView from "../pages/SituationView";
 import CommunityPostView from "../pages/CommunityPostView";
@@ -25,6 +26,7 @@ const StackNavigator = () => {
       }}>
       {/* 컴포넌트를 페이지로 만들어주는 엘리먼트에 끼워 넣습니다. 이 자체로 이제 페이지 기능을 합니다*/}
       <Stack.Screen name="TabNavigator" component={TabNavigator} />
+      <Stack.Screen name="SignInPage" component={SignInPage} />
       <Stack.Screen name="Situation" component={Situation} />
       <Stack.Screen name="SituationView" component={SituationView} />
       <Stack.Screen name="CommunityPostView" component={CommunityPostView} />

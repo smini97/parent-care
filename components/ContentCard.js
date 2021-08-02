@@ -12,7 +12,7 @@ import {
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
-export default function ContentCard({ navigation, content, thumbnail }) {
+export default function ContentCard({ navigation, content, files, thumbnail }) {
   return (
     <TouchableOpacity
       style={styles.cardBox}
@@ -20,13 +20,13 @@ export default function ContentCard({ navigation, content, thumbnail }) {
         navigation.push("ContentView", {
           navigation: navigation,
           content: content,
+          files: files,
         })
       }>
       <ImageBackground
         source={{ uri: thumbnail }}
         style={styles.imgBox}
-        imageStyle={{ borderRadius: 5 }}>
-        </ImageBackground>
+        imageStyle={{ borderRadius: 5 }}></ImageBackground>
     </TouchableOpacity>
   );
 }

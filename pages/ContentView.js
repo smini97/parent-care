@@ -19,7 +19,7 @@ const windowHeight = Dimensions.get("window").height;
 
 export default function ContentView({ navigation, route }) {
   const [bookmark, setBookmark] = useState(false);
-  const { content } = route.params;
+  const { content, files } = route.params;
 
   return (
     <SafeAreaView style={styles.container}>
@@ -47,7 +47,7 @@ export default function ContentView({ navigation, route }) {
           marginTop: "10%",
         }}>
         <ScrollView horizontal pagingEnabled>
-          {content.url.map((data, i) => {
+          {files.map((data, i) => {
             return (
               <>
                 <ImageBackground

@@ -19,7 +19,7 @@ export default function ContentTagSelect({ text, isFocused, setTagFunc }) {
 
 const styles = StyleSheet.create({
   tagBox: {
-    width: windowWidth / 4,
+    width: windowWidth / 3,
     justifyContent: "center",
     alignItems: "center",
     marginTop: 10,
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   },
   tagText: { color: "#000", fontWeight: "700", fontSize: 15 },
   selectedTagBox: {
-    width: windowWidth / 4,
+    width: windowWidth / 3,
     justifyContent: "center",
     alignItems: "center",
     marginTop: 10,
