@@ -9,10 +9,10 @@ import {
   TouchableOpacity,
   SafeAreaView,
   ImageBackground,
-  Alert,
 } from "react-native";
 import { Header, Left, Right, Body, Title } from "native-base";
 import { Ionicons } from "@expo/vector-icons";
+import Contents from "./Contents";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -26,64 +26,14 @@ export default function ContentView({ navigation, route }) {
       <Header transparent>
         <Left>
           <TouchableOpacity
-            style={{ marginLeft: 10 }}
+            style={{ margin: 10 }}
             onPress={() => {
               navigation.goBack();
             }}>
             <Ionicons name="arrow-back" size={28} color="black" />
           </TouchableOpacity>
         </Left>
-        <Body>
-          <Text style={{ width: windowWidth / 1.3, fontSize: 15 }}>
-            {content.title}
-          </Text>
-        </Body>
-        <Right />
-      </Header>
-      <View
-        style={{
-          justifyContent: "center",
-          alignItems: "center",
-          marginTop: "10%",
-        }}>
-        <ScrollView horizontal pagingEnabled>
-          {files.map((data, i) => {
-            return (
-              <>
-                <ImageBackground
-                  source={{ uri: data }}
-                  style={styles.imageBox}></ImageBackground>
-              </>
-            );
-          })}
-        </ScrollView>
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-around",
-            marginTop: 30,
-          }}>
-          <TouchableOpacity
-            style={{
-              justifyContent: "center",
-              alignItems: "center",
-              margin: 10,
-            }}>
-            <Ionicons name="share-social" size={28} color="black" />
-            <Text style={styles.smallText}>공유하기</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => {
-              navigation.push("TabNavigator");
-            }}
-            style={{
-              justifyContent: "center",
-              alignItems: "center",
-              margin: 10,
-            }}>
-            <Ionicons name="home-outline" size={28} color="black" />
-            <Text style={styles.smallText}>메인으로</Text>
-          </TouchableOpacity>
+        <Right>
           <TouchableOpacity
             style={{
               justifyContent: "center",
@@ -98,10 +48,100 @@ export default function ContentView({ navigation, route }) {
             ) : (
               <Ionicons name="bookmark-outline" size={28} color="black" />
             )}
-            <Text style={styles.smallText}>저장하기</Text>
           </TouchableOpacity>
+        </Right>
+      </Header>
+      <ScrollView>
+        <View
+          style={{
+            justifyContent: "center",
+            alignItems: "center",
+          }}>
+          <ScrollView horizontal pagingEnabled>
+            {files.map((data, i) => {
+              return (
+                <>
+                  <ImageBackground
+                    source={{ uri: data }}
+                    style={styles.imageBox}></ImageBackground>
+                </>
+              );
+            })}
+          </ScrollView>
+
+          <View
+            style={{
+              alignSelf: "stretch",
+              borderBottomColor: "lightgrey",
+              borderBottomWidth: 1,
+              margin: 15,
+              marginBottom: 40,
+            }}>
+            <Text style={[styles.largeText, styles.leftText]}>
+              {content.title}
+            </Text>
+            <Text style={[styles.smallText, styles.leftText]}>
+              {content.description}
+            </Text>
+            <Text style={[styles.smallText, styles.leftText, styles.greyText]}>
+              {content.tags}
+            </Text>
+          </View>
+
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-around",
+              marginVertical: 30,
+            }}>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.replace("TabNavigator");
+              }}
+              style={{
+                justifyContent: "center",
+                alignItems: "center",
+                margin: 10,
+              }}>
+              <View
+                style={{
+                  padding: 10,
+                  backgroundColor: "#fff",
+                  borderColor: "lightgrey",
+                  borderWidth: 0.3,
+                  borderRadius: 30,
+                  shadowOffset: { width: 0, height: 2 },
+                  shadowOpacity: 0.1,
+                }}>
+                <Ionicons name="home" size={28} color="#5DE2A2" />
+              </View>
+              <Text style={styles.smallText}>메인으로</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              onPress={() => {}}
+              style={{
+                justifyContent: "center",
+                alignItems: "center",
+                margin: 10,
+              }}>
+              <View
+                style={{
+                  padding: 10,
+                  backgroundColor: "#fff",
+                  borderColor: "lightgrey",
+                  borderWidth: 0.3,
+                  borderRadius: 30,
+                  shadowOffset: { width: 0, height: 2 },
+                  shadowOpacity: 0.1,
+                }}>
+                <Ionicons name="share" size={28} color="#5DE2A2" />
+              </View>
+              <Text style={styles.smallText}>공유하기</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 }
@@ -114,22 +154,27 @@ const styles = StyleSheet.create({
     height: windowHeight,
   },
   largeText: {
-    fontSize: 17,
-    fontWeight: "600",
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderBottomColor: "grey",
-    borderBottomWidth: 1,
-  },
-
-  smallText: {
     fontSize: 15,
-    fontWeight: "500",
+    fontWeight: "600",
+    padding: 10,
+    paddingBottom: 20,
+  },
+  smallText: {
+    fontSize: 13,
+    fontWeight: "400",
+    padding: 10,
+  },
+  leftText: {
+    textAlign: "left",
+  },
+  greyText: {
+    color: "lightgrey",
+    fontSize: 13,
+    fontWeight: "300",
     padding: 10,
   },
   imageBox: {
     width: windowWidth,
     height: windowWidth,
-    marginBottom: 10,
   },
 });

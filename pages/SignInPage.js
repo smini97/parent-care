@@ -33,11 +33,10 @@ export default function SignInPage({ navigation }) {
       })
         .then((response) => response.json())
         .then(async (responseData) => {
-          onValueChange("token", responseData.token);
-
-          Alert.alert("Signin Success!");
-        })
-        .done(navigation.navigate("TabNavigator"));
+          await onValueChange("token", responseData.token);
+          console.log(responseData.token);
+          await navigation.navigate("TabNavigator");
+        });
     }
   };
 

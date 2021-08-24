@@ -5,10 +5,10 @@ import TabNavigator from "./TabNavigator";
 
 //페이지로 만든 컴포넌트들을 불러옵니다
 import SignInPage from "../pages/SignInPage";
-import Situation from "../pages/Situation";
-import SituationView from "../pages/SituationView";
+import Curriculums from "../pages/Curriculums";
+import CurriculumView from "../pages/CurriculumView";
 import CommunityPostView from "../pages/CommunityPostView";
-import ContentPage from "../pages/ContentPage";
+import Contents from "../pages/Contents";
 import ContentView from "../pages/ContentView";
 
 //스택 네비게이션 라이브러리가 제공해주는 여러 기능이 담겨있는 객체를 사용합니다
@@ -27,11 +27,11 @@ const StackNavigator = () => {
       {/* 컴포넌트를 페이지로 만들어주는 엘리먼트에 끼워 넣습니다. 이 자체로 이제 페이지 기능을 합니다*/}
       <Stack.Screen name="TabNavigator" component={TabNavigator} />
       <Stack.Screen name="SignInPage" component={SignInPage} />
-      <Stack.Screen name="Situation" component={Situation} />
-      <Stack.Screen name="SituationView" component={SituationView} />
-      <Stack.Screen name="CommunityPostView" component={CommunityPostView} />
-      <Stack.Screen name="ContentPage" component={ContentPage} />
+      <Stack.Screen name="Curriculums" component={Curriculums} />
+      <Stack.Screen name="CurriculumView" component={CurriculumView} />
+      <Stack.Screen name="Contents" component={Contents} />
       <Stack.Screen name="ContentView" component={ContentView} />
+      <Stack.Screen name="CommunityPostView" component={CommunityPostView} />
     </Stack.Navigator>
   );
 };

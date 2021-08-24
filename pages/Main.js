@@ -6,23 +6,21 @@ import {
   Dimensions,
   ScrollView,
   TouchableOpacity,
-  Alert,
 } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
-import FirstThumb from "../assets/LoadingImg.png";
-import SituationLine from "../components/SituationLine";
 import ContentCard from "../components/ContentCard";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { FileSystem } from "expo";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
 export default function Main({ navigation }) {
-  const [curriculum, setCurriculum] = useState([]);
+  const [curriculums, setCurriculums] = useState({ result: [] });
   const [contents, setContents] = useState({ result: [] });
-  const getProtectedQuote = async () => {
-    var TOKEN = await AsyncStorage.getItem("token");
+  const getContents = async () => {
+    //var TOKEN = await AsyncStorage.getItem("token");
+    const TOKEN =
+      "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI3Iiwicm9sZSI6IlJPTEVfVVNFUiIsImlhdCI6MTYyOTcxOTUzMSwiZXhwIjoxNjI5ODA1OTMxfQ.ziZ6Tnd1R3oxnCOaoQSfw7cp3kbHi8e-QVZ7CHoRww4";
+
     fetch("https://api.dangnagwi.lomy.info/contents?size=10", {
       method: "GET",
       headers: {
@@ -36,29 +34,27 @@ export default function Main({ navigation }) {
       .done();
   };
 
-  const prepare = async () => {
-    await setCurriculum([
-      { title: "자녀가 시무룩해 보여요", tag: "자녀" },
-      { title: "부모 역할이 부담스럽고 힘들어요", tag: "부모" },
-      { title: "모의고사 성적이 못나왔어요", tag: "공부" },
-      { title: "성적을 숨겨요", tag: "공부" },
-      { title: "특정 진로를 강요하고 싶어요", tag: "공부" },
-      { title: "자녀가 희망하는 과가 마음에 들지 않아요", tag: "갈등" },
-      { title: "친구 자녀가 좋은 대학에 합격했대요", tag: "갈등" },
-      { title: "아이가 아침에 잘 일어나지 못해요", tag: "자녀" },
-      { title: "정신적 문제를 심각하게 호소해요", tag: "자녀" },
-      { title: "폭식증/거식증의 증상이 있어요", tag: "자녀" },
-      { title: "갱년기로 우울해지고 힘들어요", tag: "부모" },
-      { title: "공부 잘하는 다른 형제자매와 비교하게 돼요", tag: "갈등" },
-      { title: "일이 너무 바빠서 잘 챙겨주지 못해요", tag: "부모" },
-      { title: "자녀에게 집착하게 돼요", tag: "부모" },
-      { title: "욱해서 마음에도 없는 나쁜 말을 했어요", tag: "갈등" },
-      { title: "N수를 해서 공부를 더 하고 싶다고 하네요", tag: "갈등" },
-    ]);
+  const getCurriculums = async () => {
+    //var TOKEN = await AsyncStorage.getItem("token");
+    const TOKEN =
+      "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI3Iiwicm9sZSI6IlJPTEVfVVNFUiIsImlhdCI6MTYyOTcxOTUzMSwiZXhwIjoxNjI5ODA1OTMxfQ.ziZ6Tnd1R3oxnCOaoQSfw7cp3kbHi8e-QVZ7CHoRww4";
+
+    fetch("https://api.dangnagwi.lomy.info/curriculums?size=10", {
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + TOKEN,
+      },
+    })
+      .then((response) => response.json())
+      .then((quote) => {
+        setCurriculums(quote);
+      })
+      .done();
   };
+
   useEffect(() => {
-    prepare();
-    getProtectedQuote();
+    getContents();
+    getCurriculums();
   }, []);
 
   return (
@@ -139,21 +135,15 @@ export default function Main({ navigation }) {
                 marginBottom: 10,
               }}
               onPress={() =>
-                navigation.navigate("Situation", {
-                  curriculum: curriculum,
+                navigation.navigate("Curriculums", {
+                  curriculums: curriculums,
                 })
               }>
               <Text style={styles.smallText}>전체보기 {">"}</Text>
             </TouchableOpacity>
           </View>
-          {curriculum.slice(-5).map((data, i) => {
-            return (
-              <SituationLine
-                key={i}
-                curriculum={data}
-                navigation={navigation}
-              />
-            );
+          {curriculums.result.slice(0, 5).map((data, i) => {
+            console.log(data.title);
           })}
 
           <View
@@ -164,7 +154,7 @@ export default function Main({ navigation }) {
                 marginBottom: 10,
               }}
               onPress={() =>
-                navigation.navigate("ContentPage", {
+                navigation.navigate("Contents", {
                   contents: contents,
                 })
               }>
@@ -174,8 +164,7 @@ export default function Main({ navigation }) {
           <ScrollView
             horizontal
             style={{ flexDirection: "row", paddingHorizontal: 10 }}>
-            {contents.result.map((data, i) => {
-              console.log(data);
+            {contents.result.slice(0, 5).map((data, i) => {
               if (data.metadata) {
                 let { files, thumbnail } = JSON.parse(data.metadata);
                 return (

@@ -10,25 +10,25 @@ import {
 import { Header, Left, Right, Body, Title } from "native-base";
 import { StatusBar } from "expo-status-bar";
 import { Ionicons } from "@expo/vector-icons";
-import SituationLine from "../components/SituationLine";
-import SituationTagSelect from "../components/SituationTagSelect";
+import CurriculumLine from "../components/CurriculumLine";
+import CurriculumTagSelect from "../components/CurriculumTagSelect";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
-export default function Situation({ navigation, route }) {
-  const { curriculum } = route.params;
-  const [data, setData] = useState(curriculum);
-  const tagList = ["전체", "공부", "자녀", "부모", "갈등"];
+export default function Curriculums({ navigation, route }) {
+  const { curriculums } = route.params;
+  const [data, setData] = useState(curriculums.result);
+  const tagList = ["전체", "건강", "관계", "생활", "학업"];
   const [selectedTag, setSelectedTag] = useState("전체");
   const setTagFunc = (d) => {
     setSelectedTag(d);
     if (d === "전체") {
-      setData(curriculum);
+      setData(curriculums.result);
     } else {
       setData(
-        curriculum.filter((v) => {
-          return v.tag === d;
+        curriculums.result.filter((v) => {
+          return v.category === d;
         })
       );
     }
@@ -72,7 +72,7 @@ export default function Situation({ navigation, route }) {
           {tagList.map((data, i) => {
             const isFocused = data === selectedTag;
             return (
-              <SituationTagSelect
+              <CurriculumTagSelect
                 key={i}
                 text={data}
                 isFocused={isFocused}
@@ -83,7 +83,7 @@ export default function Situation({ navigation, route }) {
         </View>
         {data.map((data, i) => {
           return (
-            <SituationLine key={i} curriculum={data} navigation={navigation} />
+            <CurriculumLine key={i} curriculum={data} navigation={navigation} />
           );
         })}
       </ScrollView>

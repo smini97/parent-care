@@ -17,11 +17,11 @@ import ContentCard from "../components/ContentCard";
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
-export default function ContentPage({ navigation, route }) {
+export default function Contents({ navigation, route }) {
   const { contents } = route.params;
-  const [data, setData] = useState(contents);
-  const tagList = ["심리학지식", "오디오북", "명언모음"];
-  const [selectedTag, setSelectedTag] = useState("심리학지식");
+  const [data, setData] = useState(contents.result);
+  const tagList = ["양육지식", "오디오북", "명언모음"];
+  const [selectedTag, setSelectedTag] = useState("양육지식");
   const setTagFunc = (d) => {
     setSelectedTag(d);
     setData(
@@ -72,14 +72,13 @@ export default function ContentPage({ navigation, route }) {
             flexDirection: "row",
             flexWrap: "wrap",
           }}>
-          {data.result.map((data, i) => {
-            console.log(data);
-            if (data.metadata) {
-              let { files, thumbnail } = JSON.parse(data.metadata);
+          {data.map((d, i) => {
+            if (d.metadata) {
+              let { files, thumbnail } = JSON.parse(d.metadata);
               return (
                 <ContentCard
                   key={i}
-                  content={data}
+                  content={d}
                   files={files}
                   navigation={navigation}
                   thumbnail={thumbnail}

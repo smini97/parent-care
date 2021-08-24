@@ -33,13 +33,14 @@ export default function ContentCard({ navigation, content, files, thumbnail }) {
 
 const styles = StyleSheet.create({
   cardBox: {
-    width: windowWidth / 2.3,
-    height: windowWidth / 2.3,
-    margin: 10,
+    width: windowWidth / 2,
+    height: windowWidth / 2,
+    justifyContent: "center",
+    alignItems: "center",
   },
   imgBox: {
-    width: windowWidth / 2.3,
-    height: windowWidth / 2.3,
+    width: windowWidth / 2.15,
+    height: windowWidth / 2.15,
   },
   largeText: {
     fontSize: 15,
