@@ -9,8 +9,17 @@ import { Ionicons } from "@expo/vector-icons";
 
 import Loading from "./pages/Loading";
 
+import * as firebase from "firebase";
+
+import apiKeys from "./config/key";
+
 export default function App() {
   const [ready, setReady] = useState(false);
+
+  if (!firebase.apps.length) {
+    console.log("Connected with Firebase");
+    firebase.initializeApp(apiKeys.firebaseConfig);
+  }
 
   const loadFont = () => {
     setTimeout(async () => {

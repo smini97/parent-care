@@ -5,6 +5,9 @@ import TabNavigator from "./TabNavigator";
 
 //페이지로 만든 컴포넌트들을 불러옵니다
 import SignInPage from "../pages/SignInPage";
+import SignupPage from "../pages/SignupPage";
+import SignupPolicy from "../pages/SignupPolicy";
+import StartPage from "../pages/StartPage";
 import Situation from "../pages/Situation";
 import SituationView from "../pages/SituationView";
 import CommunityPostView from "../pages/CommunityPostView";
@@ -26,7 +29,10 @@ const StackNavigator = () => {
       }}>
       {/* 컴포넌트를 페이지로 만들어주는 엘리먼트에 끼워 넣습니다. 이 자체로 이제 페이지 기능을 합니다*/}
 
+      <Stack.Screen name="StartPage" component={StartPage} />
       <Stack.Screen name="SignInPage" component={SignInPage} />
+      <Stack.Screen name="SignupPage" component={SignupPage} />
+      <Stack.Screen name="SignupPolicy" component={SignupPolicy} />
       <Stack.Screen name="TabNavigator" component={TabNavigator} />
       <Stack.Screen name="Situation" component={Situation} />
       <Stack.Screen name="SituationView" component={SituationView} />

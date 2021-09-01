@@ -14,15 +14,26 @@ import SituationLine from "../components/SituationLine";
 import ContentCard from "../components/ContentCard";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { FileSystem } from "expo";
+import * as firebase from "firebase";
+import "firebase/firestore";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
+const currentUser = firebase.auth().currentUser;
+const db = firebase.firestore();
+
 export default function Main({ navigation }) {
   const [curriculum, setCurriculum] = useState([]);
   const [contents, setContents] = useState({ result: [] });
+
   const getProtectedQuote = async () => {
-    var TOKEN = await AsyncStorage.getItem("token");
+    let userRef = await db.collection("users").doc(currentUser.uid);
+    let data = await userRef.get().then((doc) => {
+      return doc.data();
+    });
+    var TOKEN = await data.token;
+    console.log(TOKEN);
     fetch("https://api.dangnagwi.lomy.info/contents?size=10", {
       method: "GET",
       headers: {
@@ -31,6 +42,7 @@ export default function Main({ navigation }) {
     })
       .then((response) => response.json())
       .then((quote) => {
+        console.log(quote);
         setContents(quote);
       })
       .done();
@@ -59,6 +71,9 @@ export default function Main({ navigation }) {
   useEffect(() => {
     prepare();
     getProtectedQuote();
+    navigation.addListener("beforeRemove", (e) => {
+      e.preventDefault();
+    });
   }, []);
 
   return (
