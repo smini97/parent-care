@@ -20,10 +20,9 @@ import "firebase/firestore";
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
-const currentUser = firebase.auth().currentUser;
-const db = firebase.firestore();
-
 export default function Main({ navigation }) {
+  const currentUser = firebase.auth().currentUser;
+  const db = firebase.firestore();
   const [curriculum, setCurriculum] = useState([]);
   const [contents, setContents] = useState({ result: [] });
 
