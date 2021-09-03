@@ -96,7 +96,7 @@ export default function Mypage({ navigation }) {
               </Text>
             </TouchableOpacity>
           </Col>
-          <Col size={3} style={styles.categoryCol}>
+          <Col size={3} style={(styles.categoryCol, { borderRightWidth: 0 })}>
             <TouchableOpacity
               style={{ alignItems: "center" }}
               onPress={goSomeWhere}>

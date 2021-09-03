@@ -3,6 +3,8 @@ import { StyleSheet } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { NavigationContainer } from "@react-navigation/native";
 import StackNavigator from "./navigations/StackNavigator";
+import { LogBox } from "react-native";
+import _ from "lodash";
 
 import * as Font from "expo-font";
 import { Ionicons } from "@expo/vector-icons";
@@ -14,6 +16,15 @@ import * as firebase from "firebase";
 import apiKeys from "./config/key";
 
 export default function App() {
+  LogBox.ignoreLogs(["Warning:..."]); // ignore specific logs
+  LogBox.ignoreAllLogs(); // ignore all logs
+  const _console = _.clone(console);
+  console.warn = (message) => {
+    if (message.indexOf("Setting a timer") <= -1) {
+      _console.warn(message);
+    }
+  };
+
   const [ready, setReady] = useState(false);
 
   if (!firebase.apps.length) {

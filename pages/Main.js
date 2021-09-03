@@ -31,7 +31,7 @@ export default function Main({ navigation }) {
     let data = await userRef.get().then((doc) => {
       return doc.data();
     });
-    var TOKEN = await data.token;
+    var TOKEN = await AsyncStorage.getItem("token");
     console.log(TOKEN);
     fetch("https://api.dangnagwi.lomy.info/contents?size=10", {
       method: "GET",
