@@ -59,7 +59,7 @@ export default function Mypage({ navigation }) {
   };
 
   const goSomeWhere = () => {
-    navigation.navigate("Main");
+    navigation.navigate("BookmarkContents");
   };
 
   useEffect(() => {

@@ -13,6 +13,8 @@ import {
 } from "react-native";
 import { Header, Left, Right, Body, Title } from "native-base";
 import { Ionicons } from "@expo/vector-icons";
+import * as firebase from "firebase";
+import "firebase/firestore";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -20,6 +22,35 @@ const windowHeight = Dimensions.get("window").height;
 export default function ContentView({ navigation, route }) {
   const [bookmark, setBookmark] = useState(false);
   const { content, files } = route.params;
+
+  const currentUser = firebase.auth().currentUser;
+  const db = firebase.firestore();
+  let userRef = db.collection("users").doc(currentUser.uid);
+
+  const pushBookmark = (id) => {
+    userRef.update({
+      contentList: firebase.firestore.FieldValue.arrayUnion(id),
+    });
+  };
+
+  const removeBookmark = (id) => {
+    userRef.update({
+      contentList: firebase.firestore.FieldValue.arrayRemove(id),
+    });
+  };
+
+  const bookmarkCheck = async () => {
+    let data = await userRef.get().then((doc) => {
+      return doc.data();
+    });
+    if (data.contentList.includes(content.id)) {
+      setBookmark(true);
+    }
+  };
+
+  useEffect(() => {
+    bookmarkCheck();
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -92,6 +123,11 @@ export default function ContentView({ navigation, route }) {
             }}
             onPress={() => {
               setBookmark(!bookmark);
+              if (!bookmark) {
+                pushBookmark(content.id);
+              } else {
+                removeBookmark(content.id);
+              }
             }}>
             {bookmark ? (
               <Ionicons name="bookmark" size={28} color="black" />
