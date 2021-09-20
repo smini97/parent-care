@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import SituationLine from "../components/SituationLine";
+import SituationLine from "../components/CurriculumLine";
 import ContentCard from "../components/ContentCard";
 
 const windowWidth = Dimensions.get("window").width;

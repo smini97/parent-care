@@ -142,8 +142,10 @@ export default function Main({ navigation }) {
               <Text style={styles.smallText}>전체보기 {">"}</Text>
             </TouchableOpacity>
           </View>
-          {curriculums.result.slice(0, 5).map((data, i) => {
-            console.log(data.title);
+          {curriculums.result.map((data, i) => {
+            if (i < 5) {
+              console.log(data.title);
+            }
           })}
 
           <View
@@ -164,18 +166,20 @@ export default function Main({ navigation }) {
           <ScrollView
             horizontal
             style={{ flexDirection: "row", paddingHorizontal: 10 }}>
-            {contents.result.slice(0, 5).map((data, i) => {
-              if (data.metadata) {
-                let { files, thumbnail } = JSON.parse(data.metadata);
-                return (
-                  <ContentCard
-                    key={i}
-                    content={data}
-                    files={files}
-                    navigation={navigation}
-                    thumbnail={thumbnail}
-                  />
-                );
+            {contents.result.map((data, i) => {
+              if (i < 5) {
+                if (data.metadata) {
+                  let { files, thumbnail } = JSON.parse(data.metadata);
+                  return (
+                    <ContentCard
+                      key={i}
+                      content={data}
+                      files={files}
+                      navigation={navigation}
+                      thumbnail={thumbnail}
+                    />
+                  );
+                }
               }
             })}
           </ScrollView>

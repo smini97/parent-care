@@ -10,6 +10,12 @@ import CurriculumView from "../pages/CurriculumView";
 import CommunityPostView from "../pages/CommunityPostView";
 import Contents from "../pages/Contents";
 import ContentView from "../pages/ContentView";
+import MissionHome from "../pages/MissionHome";
+import MissionAddPage from "../pages/MissionAddPage";
+import MissionDetail from "../pages/MissionDetail";
+import MissionEvent from "../pages/MissionEvent";
+import MissionHistory from "../pages/MissionHistory";
+import MissionStampList from "../pages/MissionStampList";
 
 //스택 네비게이션 라이브러리가 제공해주는 여러 기능이 담겨있는 객체를 사용합니다
 //그래서 이렇게 항상 상단에 선언하고 시작하는게 규칙입니다!
@@ -25,12 +31,18 @@ const StackNavigator = () => {
         headerShown: false,
       }}>
       {/* 컴포넌트를 페이지로 만들어주는 엘리먼트에 끼워 넣습니다. 이 자체로 이제 페이지 기능을 합니다*/}
+      <Stack.Screen name="MissionHome" component={MissionHome} />
       <Stack.Screen name="TabNavigator" component={TabNavigator} />
       <Stack.Screen name="SignInPage" component={SignInPage} />
       <Stack.Screen name="Curriculums" component={Curriculums} />
       <Stack.Screen name="CurriculumView" component={CurriculumView} />
       <Stack.Screen name="Contents" component={Contents} />
       <Stack.Screen name="ContentView" component={ContentView} />
+      <Stack.Screen name="MissionAddPage" component={MissionAddPage} />
+      <Stack.Screen name="MissionDetail" component={MissionDetail} />
+      <Stack.Screen name="MissionEvent" component={MissionEvent} />
+      <Stack.Screen name="MissionHistory" component={MissionHistory} />
+      <Stack.Screen name="MissionStampList" component={MissionStampList} />
       <Stack.Screen name="CommunityPostView" component={CommunityPostView} />
     </Stack.Navigator>
   );
