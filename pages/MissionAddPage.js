@@ -10,6 +10,7 @@ import {
 import { Header, Left, Right, Body } from "native-base";
 import { StatusBar } from "expo-status-bar";
 import GoBackButton from "../components/GoBackButton";
+import MissionCard from "../components/MissionCard";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -28,7 +29,11 @@ export default function MissionAddPage({ navigation }) {
         <Right />
       </Header>
 
-      <ScrollView></ScrollView>
+      <ScrollView>
+        <MissionCard navigation={navigation} />
+        <MissionCard navigation={navigation} />
+        <MissionCard navigation={navigation} />
+      </ScrollView>
     </View>
   );
 }

@@ -33,8 +33,10 @@ const styles = StyleSheet.create({
   dateBox: {
     flex: 1,
     backgroundColor: "#d2d2d2",
-    padding: 20,
+    padding: 5,
     borderRadius: 10,
+    alignItems: "center",
+    justifyContent: "center",
   },
   largeText: {
     color: "#000",
