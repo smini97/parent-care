@@ -89,7 +89,9 @@ export default function Mypage({ navigation }) {
           <Col size={3} style={styles.categoryCol}>
             <TouchableOpacity
               style={{ alignItems: "center" }}
-              onPress={goSomeWhere}>
+              onPress={() => {
+                navigation.navigate("BookmarkContents");
+              }}>
               <Image style={styles.categoryImage} source={category2} />
               <Text style={styles.category}>
                 즐겨찾는{"\n"} {""} 콘텐츠
@@ -107,7 +109,11 @@ export default function Mypage({ navigation }) {
         </Grid>
         <Grid style={{ alignItems: "center", paddingTop: "5%" }}>
           <Row style={styles.tabsRow}>
-            <TouchableOpacity style={{ width: "100%" }} onPress={goSomeWhere}>
+            <TouchableOpacity
+              style={{ width: "100%" }}
+              onPress={() => {
+                navigation.navigate("KidsAlarmPage");
+              }}>
               <Text>자녀 일정 알리미</Text>
               <Image style={styles.tabsArrow} source={tabsIcon} />
             </TouchableOpacity>

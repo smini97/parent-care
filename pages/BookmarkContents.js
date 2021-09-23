@@ -32,7 +32,7 @@ export default function BookmarkContents({ navigation, route }) {
       return doc.data();
     });
 
-    setBookmark(data.contentList);
+    setBookmark(data.contentBookmark);
   };
 
   const getProtectedQuote = async (id) => {

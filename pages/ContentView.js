@@ -29,13 +29,13 @@ export default function ContentView({ navigation, route }) {
 
   const pushBookmark = (id) => {
     userRef.update({
-      contentList: firebase.firestore.FieldValue.arrayUnion(id),
+      contentBookmark: firebase.firestore.FieldValue.arrayUnion(id),
     });
   };
 
   const removeBookmark = (id) => {
     userRef.update({
-      contentList: firebase.firestore.FieldValue.arrayRemove(id),
+      contentBookmark: firebase.firestore.FieldValue.arrayRemove(id),
     });
   };
 
@@ -43,7 +43,7 @@ export default function ContentView({ navigation, route }) {
     let data = await userRef.get().then((doc) => {
       return doc.data();
     });
-    if (data.contentList.includes(content.id)) {
+    if (data.contentBookmark.includes(content.id)) {
       setBookmark(true);
     }
   };

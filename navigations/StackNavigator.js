@@ -14,6 +14,9 @@ import CommunityPostView from "../pages/CommunityPostView";
 import ContentPage from "../pages/ContentPage";
 import ContentView from "../pages/ContentView";
 import BookmarkContents from "../pages/BookmarkContents";
+import KidsAlarmPage from "../pages/KidsAlarmPage";
+import KidsInfoPage from "../pages/KidsInfoPage";
+import KidsSchedule from "../pages/KidsSchedule";
 
 //스택 네비게이션 라이브러리가 제공해주는 여러 기능이 담겨있는 객체를 사용합니다
 //그래서 이렇게 항상 상단에 선언하고 시작하는게 규칙입니다!
@@ -41,6 +44,9 @@ const StackNavigator = () => {
       <Stack.Screen name="ContentPage" component={ContentPage} />
       <Stack.Screen name="ContentView" component={ContentView} />
       <Stack.Screen name="BookmarkContents" component={BookmarkContents} />
+      <Stack.Screen name="KidsAlarmPage" component={KidsAlarmPage} />
+      <Stack.Screen name="KidsInfoPage" component={KidsInfoPage} />
+      <Stack.Screen name="KidsSchedule" component={KidsSchedule} />
     </Stack.Navigator>
   );
 };

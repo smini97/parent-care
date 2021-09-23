@@ -32,7 +32,6 @@ export default function Main({ navigation }) {
       return doc.data();
     });
     var TOKEN = await AsyncStorage.getItem("token");
-    console.log(TOKEN);
     fetch("https://api.dangnagwi.lomy.info/contents?size=10", {
       method: "GET",
       headers: {
@@ -41,7 +40,6 @@ export default function Main({ navigation }) {
     })
       .then((response) => response.json())
       .then((quote) => {
-        console.log(quote);
         setContents(quote);
       })
       .done();
@@ -189,7 +187,6 @@ export default function Main({ navigation }) {
             horizontal
             style={{ flexDirection: "row", paddingHorizontal: 10 }}>
             {contents.result.map((data, i) => {
-              console.log(data);
               if (data.metadata) {
                 let { files, thumbnail } = JSON.parse(data.metadata);
                 return (
