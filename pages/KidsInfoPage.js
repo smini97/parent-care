@@ -32,6 +32,9 @@ export default function KidsInfoPage({ navigation, route }) {
   const db = firebase.firestore();
 
   const [show, setShow] = useState(false);
+  const [clicked, setClicked] = useState(false);
+  const [clicked2, setClicked2] = useState(false);
+  const [clicked3, setClicked3] = useState(false);
 
   const [birth, setBirth] = useState(new Date());
   const [name, setName] = useState("");
@@ -158,18 +161,54 @@ export default function KidsInfoPage({ navigation, route }) {
           </Form>
           <Grid style={{ marginTop: "10%", paddingHorizontal: "10%" }}>
             <Col>
-              <TouchableOpacity onPress={() => setSex("남")}>
-                <Text style={styles.sexInput}>남</Text>
+              <TouchableOpacity
+                onPress={() => {
+                  setClicked(!clicked);
+                  if (!clicked) {
+                    setSex("남");
+                  } else {
+                    setSex("");
+                  }
+                }}>
+                {clicked ? (
+                  <Text style={styles.sexInput2}>남</Text>
+                ) : (
+                  <Text style={styles.sexInput}>남</Text>
+                )}
               </TouchableOpacity>
             </Col>
             <Col>
-              <TouchableOpacity onPress={() => setSex("여")}>
-                <Text style={styles.sexInput}>여</Text>
+              <TouchableOpacity
+                onPress={() => {
+                  setClicked2(!clicked2);
+                  if (!clicked2) {
+                    setSex("여");
+                  } else {
+                    setSex("");
+                  }
+                }}>
+                {clicked2 ? (
+                  <Text style={styles.sexInput2}>여</Text>
+                ) : (
+                  <Text style={styles.sexInput}>여</Text>
+                )}
               </TouchableOpacity>
             </Col>
             <Col>
-              <TouchableOpacity onPress={() => setSex("미입력")}>
-                <Text style={styles.sexInput}>미입력</Text>
+              <TouchableOpacity
+                onPress={() => {
+                  setClicked3(!clicked3);
+                  if (!clicked3) {
+                    setSex("미입력");
+                  } else {
+                    setSex("");
+                  }
+                }}>
+                {clicked3 ? (
+                  <Text style={styles.sexInput2}>미입력</Text>
+                ) : (
+                  <Text style={styles.sexInput}>미입력</Text>
+                )}
               </TouchableOpacity>
             </Col>
           </Grid>
@@ -221,7 +260,17 @@ const styles = StyleSheet.create({
     padding: 5,
     paddingHorizontal: 26,
     borderRadius: 5,
-    borderColor: "gray",
+    borderColor: "#707070",
+    borderWidth: 1,
+  },
+  sexInput2: {
+    backgroundColor: "#5de2a2",
+    color: "white",
+    alignSelf: "center",
+    padding: 5,
+    paddingHorizontal: 26,
+    borderRadius: 5,
+    borderColor: "white",
     borderWidth: 1,
   },
 });

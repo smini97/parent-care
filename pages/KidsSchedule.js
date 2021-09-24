@@ -15,6 +15,9 @@ import {
   Right,
   Body,
   Form,
+  Item,
+  Picker,
+  Input,
 } from "native-base";
 import { Col, Grid } from "react-native-easy-grid";
 import { Ionicons } from "@expo/vector-icons";
@@ -23,7 +26,6 @@ import "firebase/firestore";
 
 import ItemInput from "../components/ItemInput";
 import DateTimePicker from "@react-native-community/datetimepicker";
-// import RNPickerSelect from "react-native-picker-select";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -43,7 +45,7 @@ export default function KidsSchedule({ navigation, route }) {
   const [nameError, setNameError] = useState("");
   const [dateError, setDateError] = useState("");
   const [eventError, setEventError] = useState("");
-  const [sexError, setSexError] = useState("");
+  const [alarmError, setAlarmError] = useState("");
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
@@ -84,40 +86,36 @@ export default function KidsSchedule({ navigation, route }) {
   let dateValue =
     date.getFullYear() + "년" + month + "월" + date.getDate() + "일";
 
-  const doKidsInfo = async () => {
+  const doKidsSchedule = async () => {
     //Email 로그인 버튼을 누를 때 실행되는 함수
     //관리하는 상태 값을 확인
 
     if (name == "") {
       setNameError("아름을 입력해주세요");
-      Alert.alert(nameError);
       return false;
     } else {
       setNameError("");
     }
 
     if (event == "") {
-      setNameError("아름을 입력해주세요");
-      Alert.alert(eventError);
+      setEventError("이벤트를 입력해주세요");
       return false;
     } else {
-      setNameError("");
+      setEventError("");
     }
 
     if (date == "") {
-      setBirthError("생년월일을 입력해주세요");
-      Alert.alert(birthError);
+      setDateError("날짜를 입력해주세요");
       return false;
     } else {
-      setBirthError("");
+      setDateError("");
     }
 
     if (alarm == "") {
-      setSexError("성별을 선택해주세요");
-      Alert.alert(sexError);
+      setAlarmError("알람을 설정해주세요");
       return false;
     } else {
-      setSexError("");
+      setAlarmError("");
     }
 
     await pushSchedule(name, event, dateValue, alarm, navigation);
@@ -165,35 +163,97 @@ export default function KidsSchedule({ navigation, route }) {
         <Content>
           <Form style={styles.form}>
             <Text style={styles.inputTitle}>아이선택</Text>
-
-            {/* <RNPickerSelect
-              onValueChange={(value) => setName(value)}
-              items={mykids}
-            /> */}
+            <Item picker>
+              <Picker
+                mode="dropdown"
+                style={{
+                  width: 50,
+                  height: 60,
+                  marginVertical: 20,
+                  marginBottom: -10,
+                }}
+                placeholder="Select your kids"
+                placeholderStyle={{ color: "#bfc6ea" }}
+                placeholderIconColor="#007aff"
+                selectedValue={name}
+                onValueChange={(value) => setName(value)}>
+                {mykids.map((kid, i) => {
+                  return (
+                    <Picker.Item key={i} label={kid.label} value={kid.value} />
+                  );
+                })}
+              </Picker>
+            </Item>
+            <Item style={{ borderColor: "transparent", marginBottom: "-10%" }}>
+              <Text style={{ color: "deeppink" }}>{nameError}</Text>
+            </Item>
             <Text style={styles.inputTitle}>이벤트</Text>
-            <ItemInput type={"name"} error={nameError} setFunc={setName} />
+            <Item last>
+              <Input
+                style={{
+                  fontSize: 15,
+                  marginBottom: -10,
+                  marginVertical: 30,
+                }}
+                onChangeText={(text) => {
+                  setEvent(text);
+                }}
+                placeholder="이벤트를 입력해주세요"
+              />
+            </Item>
+            <Item style={{ borderColor: "transparent", marginBottom: "-10%" }}>
+              <Text style={{ color: "deeppink" }}>{eventError}</Text>
+            </Item>
 
             <Text style={styles.inputTitle2}>날짜</Text>
             <TouchableOpacity
-              style={{ marginTop: 50 }}
+              style={{ marginTop: 40 }}
               onPress={showDatepicker}>
               <Text style={styles.dateInput}>{dateValue}</Text>
             </TouchableOpacity>
             {show && (
               <DateTimePicker
                 testID="dateTimePicker"
-                value={birth}
+                value={date}
                 mode="date"
                 is24Hour={true}
                 display="spinner"
                 onChange={onChange}
               />
             )}
+            <Item style={{ borderColor: "transparent", marginBottom: "-10%" }}>
+              <Text style={{ color: "deeppink" }}>{dateError}</Text>
+            </Item>
 
             <Text style={styles.inputTitle2}>알람</Text>
+            <Item picker>
+              <Picker
+                mode="dropdown"
+                style={{
+                  width: 50,
+                  height: 60,
+                  marginVertical: 10,
+                  marginBottom: -10,
+                }}
+                placeholderStyle={{ color: "#bfc6ea" }}
+                placeholderIconColor="#007aff"
+                selectedValue={alarm}
+                onValueChange={(value) => setAlarm(value)}>
+                <Picker.Item label="5일 전부터" value="5" />
+                <Picker.Item label="4일 전부터" value="4" />
+                <Picker.Item label="3일 전부터" value="3" />
+                <Picker.Item label="2일 전부터" value="2" />
+                <Picker.Item label="1일 전부터" value="1" />
+              </Picker>
+            </Item>
+            <Item style={{ borderColor: "transparent", marginBottom: "-10%" }}>
+              <Text style={{ color: "deeppink" }}>{alarmError}</Text>
+            </Item>
           </Form>
 
-          <TouchableOpacity style={{ marginTop: "50%" }} onPress={doKidsInfo}>
+          <TouchableOpacity
+            style={{ marginTop: "50%" }}
+            onPress={doKidsSchedule}>
             <Text style={styles.addButton}>추가하기</Text>
           </TouchableOpacity>
         </Content>

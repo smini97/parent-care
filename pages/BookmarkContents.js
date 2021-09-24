@@ -31,27 +31,52 @@ export default function BookmarkContents({ navigation, route }) {
     let data = await userRef.get().then((doc) => {
       return doc.data();
     });
-
     setBookmark(data.contentBookmark);
   };
 
+  // const getProtectedQuote = async (id) => {
+  //   var TOKEN = await AsyncStorage.getItem("token");
+  //   fetch(`https://api.dangnagwi.lomy.info/contents/${id}`, {
+  //     method: "GET",
+  //     headers: {
+  //       Authorization: "Bearer " + TOKEN,
+  //     },
+  //   })
+  //     .then((response) => response.json())
+  //     .then((quote) => {
+  //       setContents(quote);
+  //     })
+  //     .done();
+  // };
+
+  // useEffect(() => {
+  //   getBookmark();
+  // }, []);
+
   const getProtectedQuote = async (id) => {
     var TOKEN = await AsyncStorage.getItem("token");
-    fetch(`https://api.dangnagwi.lomy.info/contents/${id}`, {
+    const json = await fetch(`https://api.dangnagwi.lomy.info/contents/${id}`, {
       method: "GET",
       headers: {
         Authorization: "Bearer " + TOKEN,
       },
-    })
-      .then((response) => response.json())
-      .then((quote) => {
-        setContents(quote);
-      })
-      .done();
+    }).then((response) => response.json());
+    console.log("꾸");
+    return json;
+  };
+
+  const getContentList = () => {
+    const contentList = bookmark.map(async (id) => await getProtectedQuote(id));
+    console.log("까");
+    setContents(contentList);
   };
 
   useEffect(() => {
-    getBookmark();
+    async function BookmarkTime() {
+      await getBookmark();
+      getContentList();
+    }
+    BookmarkTime();
   }, []);
 
   return (
@@ -90,7 +115,7 @@ export default function BookmarkContents({ navigation, route }) {
           marginTop: "10%",
         }}>
         <ScrollView style={{ flexDirection: "row", paddingHorizontal: 10 }}>
-          {bookmark.map((id, i) => {
+          {/* {bookmark.map((id, i) => {
             getProtectedQuote(id);
             if (contents.metadata) {
               let { files, thumbnail } = JSON.parse(contents.metadata);
@@ -106,7 +131,8 @@ export default function BookmarkContents({ navigation, route }) {
                 </View>
               );
             }
-          })}
+          })} */}
+          {console.log(contents)}
         </ScrollView>
       </View>
     </SafeAreaView>

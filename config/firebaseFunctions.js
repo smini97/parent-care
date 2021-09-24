@@ -25,6 +25,7 @@ export async function registration(
       birth: birth,
       sex: sex,
       number: number,
+      contentBookmark: [],
     });
 
     Alert.alert("회원가입 성공!");

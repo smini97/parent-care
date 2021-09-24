@@ -31,6 +31,7 @@ const windowHeight = Dimensions.get("window").height;
 
 export default function KidsAlarmPage({ navigation, route }) {
   const [mykids, setMykids] = useState([]);
+  const [schedule, setSchedule] = useState([]);
 
   const currentUser = firebase.auth().currentUser;
   const db = firebase.firestore();
@@ -48,6 +49,19 @@ export default function KidsAlarmPage({ navigation, route }) {
     db.collection("kids").doc(id).delete();
   };
 
+  const getSchedule = async () => {
+    const s = await db
+      .collection("schedule")
+      .where("userId", "==", currentUser.uid)
+      .get();
+    const scheduleArray = s.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+    setSchedule(scheduleArray);
+  };
+
+  const removeSchedule = (id) => {
+    db.collection("schedule").doc(id).delete();
+  };
+
   useEffect(() => {
     getKidsInfo();
     db.collection("kids").onSnapshot((snapshot) => {
@@ -56,6 +70,14 @@ export default function KidsAlarmPage({ navigation, route }) {
         ...doc.data(),
       }));
       setMykids(kidsArray2);
+    });
+    getSchedule();
+    db.collection("schedule").onSnapshot((snapshot) => {
+      const scheduleArray2 = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setSchedule(scheduleArray2);
     });
   }, []);
 
@@ -134,6 +156,23 @@ export default function KidsAlarmPage({ navigation, route }) {
                 <Image style={styles.tabsArrow} source={tabsIcon} />
               </TouchableOpacity>
             </Row>
+            {schedule.map((doc, i) => {
+              return (
+                <Row style={styles.kidsRow} key={i}>
+                  <Text>{doc.eventName}</Text>
+                  <Text style={{ marginLeft: "5%", color: "#707070" }}>
+                    {doc.date}
+                  </Text>
+                  <TouchableOpacity
+                    style={{ width: "100%", paddingBottom: "3%" }}
+                    onPress={() => {
+                      removeSchedule(doc.id);
+                    }}>
+                    <Image style={styles.scheduletrash} source={kidsIcon} />
+                  </TouchableOpacity>
+                </Row>
+              );
+            })}
           </Grid>
         </Content>
       </Container>
@@ -160,7 +199,8 @@ const styles = StyleSheet.create({
   },
   tabsRow2: {
     alignItems: "center",
-    marginVertical: "30%",
+    marginTop: "30%",
+    marginBottom: "8%",
     padding: "2%",
     paddingLeft: "5%",
     width: "90%",
@@ -174,6 +214,10 @@ const styles = StyleSheet.create({
   kidstrash: {
     position: "absolute",
     right: "50%",
+  },
+  scheduletrash: {
+    position: "absolute",
+    right: "65%",
   },
   kidsRow: {
     alignItems: "center",
