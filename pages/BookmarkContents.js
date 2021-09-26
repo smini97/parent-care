@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useLayoutEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -21,62 +21,52 @@ const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
 export default function BookmarkContents({ navigation, route }) {
-  const [bookmark, setBookmark] = useState([]);
-  const [contents, setContents] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [contents, setContents] = useState([]);
+  const currentUser = firebase.auth().currentUser;
+  const db = firebase.firestore();
 
   const getBookmark = async () => {
-    const currentUser = firebase.auth().currentUser;
-    const db = firebase.firestore();
     let userRef = db.collection("users").doc(currentUser.uid);
-    let data = await userRef.get().then((doc) => {
+    const data = await userRef.get().then((doc) => {
       return doc.data();
     });
-    setBookmark(data.contentBookmark);
+    return data.contentBookmark;
   };
 
-  // const getProtectedQuote = async (id) => {
-  //   var TOKEN = await AsyncStorage.getItem("token");
-  //   fetch(`https://api.dangnagwi.lomy.info/contents/${id}`, {
-  //     method: "GET",
-  //     headers: {
-  //       Authorization: "Bearer " + TOKEN,
-  //     },
-  //   })
-  //     .then((response) => response.json())
-  //     .then((quote) => {
-  //       setContents(quote);
-  //     })
-  //     .done();
-  // };
-
-  // useEffect(() => {
-  //   getBookmark();
-  // }, []);
-
-  const getProtectedQuote = async (id) => {
+  const getProtectedQuote = async (id, contents) => {
     var TOKEN = await AsyncStorage.getItem("token");
-    const json = await fetch(`https://api.dangnagwi.lomy.info/contents/${id}`, {
+    await fetch(`https://api.dangnagwi.lomy.info/contents/${id}`, {
       method: "GET",
       headers: {
         Authorization: "Bearer " + TOKEN,
       },
-    }).then((response) => response.json());
-    console.log("꾸");
-    return json;
+    })
+      .then((response) => response.json())
+      .then(async (quote) => {
+        await contents.push(quote);
+        return contents;
+      })
+      .then((list) => {
+        setContents(list);
+      });
   };
 
-  const getContentList = () => {
-    const contentList = bookmark.map(async (id) => await getProtectedQuote(id));
-    console.log("까");
-    setContents(contentList);
+  const getContentList = async (bookmark) => {
+    await Promise.all(
+      bookmark.map(async (id) => await getProtectedQuote(id, contents))
+    );
+    setLoading(false);
   };
 
   useEffect(() => {
-    async function BookmarkTime() {
-      await getBookmark();
-      getContentList();
-    }
-    BookmarkTime();
+    getBookmark().then((id) => getContentList(id));
+    // db.collection("users")
+    //   .doc(currentUser.uid)
+    //   .onSnapshot((snapshot) => {
+    //     const scheduleArray2 = snapshot.data().contentBookmark;
+    //     // console.log(scheduleArray2);
+    //   });
   }, []);
 
   return (
@@ -114,25 +104,23 @@ export default function BookmarkContents({ navigation, route }) {
           alignItems: "center",
           marginTop: "10%",
         }}>
-        <ScrollView style={{ flexDirection: "row", paddingHorizontal: 10 }}>
-          {/* {bookmark.map((id, i) => {
-            getProtectedQuote(id);
-            if (contents.metadata) {
-              let { files, thumbnail } = JSON.parse(contents.metadata);
+        <ScrollView style={{ width: windowWidth }}>
+          {contents.map((content, i) => {
+            if (content.metadata) {
+              let { files, thumbnail } = JSON.parse(content.metadata);
               return (
-                <View key={i}>
+                <View key={i} style={{ alignItems: "center" }}>
                   <ContentCard
-                    content={contents}
+                    content={content}
                     files={files}
                     navigation={navigation}
                     thumbnail={thumbnail}
                   />
-                  <Text style={styles.smallText}>{contents.title}</Text>
+                  <Text style={styles.smallText}>{content.title}</Text>
                 </View>
               );
             }
-          })} */}
-          {console.log(contents)}
+          })}
         </ScrollView>
       </View>
     </SafeAreaView>
