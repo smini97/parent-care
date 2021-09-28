@@ -1,20 +1,15 @@
 import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
-  View,
   Dimensions,
-  ScrollView,
   TouchableOpacity,
-  ImageBackground,
-  Alert,
   Image,
+  Platform,
 } from "react-native";
 import { Row, Col, Grid } from "react-native-easy-grid";
 import { Container, Content, Text, Thumbnail } from "native-base";
-// import { StatusBar } from "expo-status-bar";
-// import { Ionicons } from "@expo/vector-icons";
-// import { TouchableHighlight } from "react-native-gesture-handler";
-// import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as ImagePicker from "expo-image-picker";
+
 import { logout } from "../config/firebaseFunctions";
 import * as firebase from "firebase";
 import "firebase/firestore";
@@ -29,22 +24,13 @@ const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
 export default function Mypage({ navigation }) {
-  // const userLogout = async () => {
-  //   try {
-  //     await AsyncStorage.removeItem("token").then(
-  //       navigation.navigate("SignInPage")
-  //     );
-  //     Alert.alert("Logout Success!");
-  //   } catch (error) {
-  //     console.log("AsyncStorage error: " + error.message);
-  //   }
-  // };
   const [nickName, setNickName] = useState("");
   const [email, setEmail] = useState("");
+  const [image, setImage] = useState(null);
+  const currentUser = firebase.auth().currentUser;
+  const db = firebase.firestore();
 
   const getUserData = async () => {
-    const currentUser = firebase.auth().currentUser;
-    const db = firebase.firestore();
     let userRef = await db.collection("users").doc(currentUser.uid);
     let data = await userRef.get().then((doc) => {
       return doc.data();
@@ -52,6 +38,7 @@ export default function Mypage({ navigation }) {
 
     setNickName(data.nickName);
     setEmail(data.email);
+    setImage(data.profileImg);
   };
 
   const logoutFunc = () => {
@@ -62,18 +49,70 @@ export default function Mypage({ navigation }) {
     navigation.navigate("BookmarkContents");
   };
 
+  const pushImage = async (result) => {
+    await db.collection("users").doc(currentUser.uid).update({
+      profileImg: result,
+    });
+  };
+  const removeImage = async (result) => {
+    await db.collection("users").doc(currentUser.uid).update({
+      profileImg: "",
+    });
+    setImage("");
+  };
+
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    console.log(result);
+
+    if (!result.cancelled) {
+      setImage(result.uri);
+      pushImage(result.uri);
+    }
+  };
+
   useEffect(() => {
     getUserData();
+    (async () => {
+      if (Platform.OS !== "web") {
+        const { status } =
+          await ImagePicker.requestMediaLibraryPermissionsAsync();
+        if (status !== "granted") {
+          alert("Sorry, we need camera roll permissions to make this work!");
+        }
+      }
+    })();
   }, []);
 
   return (
     <Container>
       <Content>
         <Grid style={{ alignItems: "center", marginTop: "30%" }}>
-          <Thumbnail large source={my} style={styles.thumbnail} />
+          {image ? (
+            <TouchableOpacity onPress={pickImage}>
+              <Thumbnail
+                large
+                source={{ uri: image }}
+                style={styles.thumbnail}
+              />
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity onPress={pickImage}>
+              <Thumbnail large source={my} style={styles.thumbnail} />
+            </TouchableOpacity>
+          )}
           <Col>
             <Text style={styles.myTitle}>{nickName}</Text>
             <Text style={{ fontSize: 15, color: "#7c7c7c" }}>{email}</Text>
+            <TouchableOpacity style={{ marginTop: 20 }} onPress={removeImage}>
+              <Text style={styles.remove}>사진 지우기</Text>
+            </TouchableOpacity>
           </Col>
         </Grid>
 
@@ -191,6 +230,14 @@ const styles = StyleSheet.create({
   logout: {
     alignSelf: "center",
     padding: 10,
+    borderColor: "grey",
+    borderWidth: 1,
+    borderRadius: 10,
+  },
+  remove: {
+    alignSelf: "flex-start",
+    fontSize: 15,
+    padding: 5,
     borderColor: "grey",
     borderWidth: 1,
     borderRadius: 10,
