@@ -95,24 +95,22 @@ export default function Mypage({ navigation }) {
       <Content>
         <Grid style={{ alignItems: "center", marginTop: "30%" }}>
           {image ? (
-            <TouchableOpacity onPress={pickImage}>
-              <Thumbnail
-                large
-                source={{ uri: image }}
-                style={styles.thumbnail}
-              />
-            </TouchableOpacity>
+            <Thumbnail large source={{ uri: image }} style={styles.thumbnail} />
           ) : (
-            <TouchableOpacity onPress={pickImage}>
-              <Thumbnail large source={my} style={styles.thumbnail} />
-            </TouchableOpacity>
+            <Thumbnail large source={my} style={styles.thumbnail} />
           )}
           <Col>
             <Text style={styles.myTitle}>{nickName}</Text>
             <Text style={{ fontSize: 15, color: "#7c7c7c" }}>{email}</Text>
-            <TouchableOpacity style={{ marginTop: 20 }} onPress={removeImage}>
-              <Text style={styles.remove}>사진 지우기</Text>
-            </TouchableOpacity>
+            {image ? (
+              <TouchableOpacity style={{ marginTop: 20 }} onPress={removeImage}>
+                <Text style={styles.remove}>사진 지우기</Text>
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity style={{ marginTop: 20 }} onPress={pickImage}>
+                <Text style={styles.remove}>사진 고르기</Text>
+              </TouchableOpacity>
+            )}
           </Col>
         </Grid>
 
