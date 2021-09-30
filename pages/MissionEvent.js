@@ -10,27 +10,23 @@ import {
 import { Header, Left, Right, Body } from "native-base";
 import { StatusBar } from "expo-status-bar";
 import { Ionicons } from "@expo/vector-icons";
+import GoBackButton from "../components/GoBackButton";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
-export default function MissionEvent({}) {
+export default function MissionEvent({ navigation }) {
   return (
     <View style={styles.container}>
       <StatusBar style="dark" />
       <Header transparent>
-        <Left></Left>
+        <Left>
+          <GoBackButton navigation={navigation} />
+        </Left>
         <Body>
-          <Text style={{ fontSize: 18 }}>노력의 발자취</Text>
+          <Text style={{ fontSize: 18 }}>스탬프 이벤트</Text>
         </Body>
-        <Right>
-          <TouchableOpacity style={{ marginRight: 10 }}>
-            <Ionicons name="search-outline" size={24} color="black" />
-          </TouchableOpacity>
-          <TouchableOpacity style={{ marginRight: 10 }}>
-            <Ionicons name="pencil" size={24} color="black" />
-          </TouchableOpacity>
-        </Right>
+        <Right />
       </Header>
 
       <ScrollView>
