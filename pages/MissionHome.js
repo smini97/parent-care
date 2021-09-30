@@ -10,9 +10,9 @@ import {
 import { Header, Left, Right, Body } from "native-base";
 import { StatusBar } from "expo-status-bar";
 import { Ionicons } from "@expo/vector-icons";
-import MissionHomeCard from "../components/MissionHomeCard";
+import MissionHomeCard from "../components/Mission/MissionHomeCard";
 import MovePageButton from "../components/MovePageButton";
-import MissionHistoryCard from "../components/MissionHistoryCard";
+import MissionHistoryCard from "../components/Mission/MissionHistoryCard";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;

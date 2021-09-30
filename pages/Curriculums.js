@@ -33,7 +33,6 @@ export default function Curriculums({ navigation, route }) {
       );
     }
   };
-
   return (
     <View style={styles.container}>
       <StatusBar style="dark" />
