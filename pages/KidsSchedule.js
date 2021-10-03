@@ -19,12 +19,10 @@ import {
   Picker,
   Input,
 } from "native-base";
-import { Col, Grid } from "react-native-easy-grid";
 import { Ionicons } from "@expo/vector-icons";
 import * as firebase from "firebase";
 import "firebase/firestore";
 
-import ItemInput from "../components/ItemInput";
 import DateTimePicker from "@react-native-community/datetimepicker";
 
 const windowWidth = Dimensions.get("window").width;

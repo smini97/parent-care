@@ -55,6 +55,9 @@ export default function Main({ navigation }) {
   useEffect(() => {
     getContents();
     getCurriculums();
+    navigation.addListener("beforeRemove", (e) => {
+      e.preventDefault();
+    });
   }, []);
 
   return (
