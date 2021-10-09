@@ -69,8 +69,6 @@ export default function Mypage({ navigation }) {
       quality: 1,
     });
 
-    console.log(result);
-
     if (!result.cancelled) {
       setImage(result.uri);
       pushImage(result.uri);

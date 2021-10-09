@@ -5,7 +5,6 @@ import {
   Dimensions,
   TouchableOpacity,
   SafeAreaView,
-  Alert,
 } from "react-native";
 import {
   Container,

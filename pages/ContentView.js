@@ -1,5 +1,4 @@
-import { StatusBar } from "expo-status-bar";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   StyleSheet,
   Text,
@@ -12,17 +11,20 @@ import {
 } from "react-native";
 import { Header, Left, Right, Body, Title } from "native-base";
 import { Ionicons } from "@expo/vector-icons";
-import Contents from "./Contents";
 import * as firebase from "firebase";
 import "firebase/firestore";
+import { Video } from "expo-av";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
 export default function ContentView({ navigation, route }) {
+  const video = useRef();
+  const [status, setStatus] = useState({});
+
   const [bookmark, setBookmark] = useState(false);
   const { content, files } = route.params;
-  console.log(route);
+  const { thumbnail } = JSON.parse(content.metadata);
   const currentUser = firebase.auth().currentUser;
   const db = firebase.firestore();
   let userRef = db.collection("users").doc(currentUser.uid);
@@ -94,15 +96,31 @@ export default function ContentView({ navigation, route }) {
             alignItems: "center",
           }}>
           <ScrollView horizontal pagingEnabled>
-            {files.map((data, i) => {
-              return (
-                <>
-                  <ImageBackground
-                    source={{ uri: data }}
-                    style={styles.imageBox}></ImageBackground>
-                </>
-              );
-            })}
+            {content.category === "오디오북" ? (
+              <>
+                <Video
+                  ref={video}
+                  style={styles.imageBox}
+                  source={{
+                    uri: files[0],
+                  }}
+                  useNativeControls
+                  resizeMode="contain"
+                  isLooping
+                  onPlaybackStatusUpdate={(status) => setStatus(() => status)}
+                />
+              </>
+            ) : (
+              files.map((data, i) => {
+                return (
+                  <>
+                    <ImageBackground
+                      source={{ uri: data }}
+                      style={styles.imageBox}></ImageBackground>
+                  </>
+                );
+              })
+            )}
           </ScrollView>
 
           <View

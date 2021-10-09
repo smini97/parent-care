@@ -61,12 +61,6 @@ export default function BookmarkContents({ navigation, route }) {
 
   useEffect(() => {
     getBookmark().then((id) => getContentList(id));
-    // db.collection("users")
-    //   .doc(currentUser.uid)
-    //   .onSnapshot((snapshot) => {
-    //     const scheduleArray2 = snapshot.data().contentBookmark;
-    //     // console.log(scheduleArray2);
-    //   });
   }, []);
 
   return (

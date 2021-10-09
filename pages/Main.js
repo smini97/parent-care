@@ -22,7 +22,7 @@ export default function Main({ navigation }) {
     //var TOKEN = await AsyncStorage.getItem("token");
     var TOKEN = await AsyncStorage.getItem("token");
 
-    fetch("https://api.dangnagwi.lomy.info/contents?size=10", {
+    fetch("https://api.dangnagwi.lomy.info/contents?size=1000", {
       method: "GET",
       headers: {
         Authorization: "Bearer " + TOKEN,
@@ -39,7 +39,7 @@ export default function Main({ navigation }) {
     //var TOKEN = await AsyncStorage.getItem("token");
     var TOKEN = await AsyncStorage.getItem("token");
 
-    fetch("https://api.dangnagwi.lomy.info/curriculums?size=10", {
+    fetch("https://api.dangnagwi.lomy.info/curriculums?size=1000", {
       method: "GET",
       headers: {
         Authorization: "Bearer " + TOKEN,

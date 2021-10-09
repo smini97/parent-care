@@ -19,36 +19,6 @@ export default function SignInPage({ navigation }) {
     });
   }, []);
 
-  // const onValueChange = async (item, selectedValue) => {
-  //   try {
-  //     await AsyncStorage.setItem(item, selectedValue);
-  //   } catch (error) {
-  //     console.log("AsyncStorage error: " + error.message);
-  //   }
-  // };
-
-  // const userSignin = (email, password) => {
-  //   if (email && password) {
-  //     // if validation fails, value will be null
-  //     fetch("https://api.dangnagwi.lomy.info/auths/signin", {
-  //       method: "POST",
-  //       headers: {
-  //         Accept: "application/json",
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({
-  //         email: email,
-  //         password: password,
-  //       }),
-  //     })
-  //       .then((response) => response.json())
-  //       .then(async (responseData) => {
-  //         await onValueChange("token", responseData.token);
-  //         Alert.alert("Signin Success!");
-  //         navigation.navigate("TabNavigator");
-  //       });
-  //   }
-  // };
   const goSignUP = () => {
     navigation.navigate("SignupPage");
   };

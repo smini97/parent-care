@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { StyleSheet, Linking, Alert, Image } from "react-native";
+import { StyleSheet, Image } from "react-native";
 import { Container, Content, Text, Form, Button } from "native-base";
 const bImage = require("../assets/icon.png");
 import ItemInput from "../components/ItemInput";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { registration } from "../config/firebaseFunctions";
 
 export default function SignInPage({ navigation }) {
@@ -27,56 +26,6 @@ export default function SignInPage({ navigation }) {
 
   const [number, setNumber] = useState("");
   const [numberError, setNumberError] = useState("");
-
-  // const onValueChange = async (item, selectedValue) => {
-  //   try {
-  //     await AsyncStorage.setItem(item, selectedValue);
-  //   } catch (error) {
-  //     console.log("AsyncStorage error: " + error.message);
-  //   }
-  // };
-
-  // const userSignin = (email, password) => {
-  //   if (email && password) {
-  //     // if validation fails, value will be null
-  //     fetch("https://api.dangnagwi.lomy.info/auths/signin", {
-  //       method: "POST",
-  //       headers: {
-  //         Accept: "application/json",
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({
-  //         email: email,
-  //         password: password,
-  //       }),
-  //     })
-  //       .then((response) => response.json())
-  //       .then((responseData) => {
-  //         const currentUser = firebase.auth().currentUser;
-  //         const db = firebase.firestore();
-  //         db.collection("users").doc(currentUser.uid).update({
-  //           token: responseData.token,
-  //         });
-  //       });
-  //   }
-  // };
-
-  // const userSignUp = (email, password) => {
-  //   if (email && password) {
-  //     // if validation fails, value will be null
-  //     fetch("https://api.dangnagwi.lomy.info/auths/signup", {
-  //       method: "POST",
-  //       headers: {
-  //         Accept: "application/json",
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({
-  //         email: email,
-  //         password: password,
-  //       }),
-  //     });
-  //   }
-  // };
 
   const goPolicy = () => {
     navigation.navigate("SignupPolicy");
