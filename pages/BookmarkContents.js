@@ -61,12 +61,6 @@ export default function BookmarkContents({ navigation, route }) {
 
   useEffect(() => {
     getBookmark().then((id) => getContentList(id));
-    // db.collection("users")
-    //   .doc(currentUser.uid)
-    //   .onSnapshot((snapshot) => {
-    //     const scheduleArray2 = snapshot.data().contentBookmark;
-    //     // console.log(scheduleArray2);
-    //   });
   }, []);
 
   return (
@@ -105,22 +99,29 @@ export default function BookmarkContents({ navigation, route }) {
           marginTop: "10%",
         }}>
         <ScrollView style={{ width: windowWidth }}>
-          {contents.map((content, i) => {
-            if (content.metadata) {
-              let { files, thumbnail } = JSON.parse(content.metadata);
-              return (
-                <View key={i} style={{ alignItems: "center" }}>
-                  <ContentCard
-                    content={content}
-                    files={files}
-                    navigation={navigation}
-                    thumbnail={thumbnail}
-                  />
-                  <Text style={styles.smallText}>{content.title}</Text>
-                </View>
-              );
-            }
-          })}
+          <View
+            style={{
+              flex: 1,
+              flexDirection: "row",
+              flexWrap: "wrap",
+            }}>
+            {contents.map((content, i) => {
+              if (content.metadata) {
+                let { files, thumbnail } = JSON.parse(content.metadata);
+                return (
+                  <View key={i}>
+                    <ContentCard
+                      content={content}
+                      files={files}
+                      navigation={navigation}
+                      thumbnail={thumbnail}
+                    />
+                    <Text style={styles.smallText}>{content.title}</Text>
+                  </View>
+                );
+              }
+            })}
+          </View>
         </ScrollView>
       </View>
     </SafeAreaView>
@@ -144,6 +145,7 @@ const styles = StyleSheet.create({
   },
 
   smallText: {
+    width: windowWidth / 2.15,
     fontSize: 15,
     fontWeight: "bold",
     padding: 10,
